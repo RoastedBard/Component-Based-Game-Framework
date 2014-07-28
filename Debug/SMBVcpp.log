@@ -1,0 +1,62 @@
+﻿Build started 29.07.2014 0:50:59.
+     1>Project "D:\Work\SuperMassiveBlackWhore\SMBVcpp\SMBVcpp.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\SMBVcpp.unsuccessfulbuild".
+       ClCompile:
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components /I"D:\LIBS\SDL2_image-devel-2.0.0-VC\include" /I"D:\LIBS\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\common\Game.cpp src\common\GameObject.cpp src\common\InputHandler.cpp src\common\main.cpp src\common\TextureManager.cpp src\components\Animation.cpp src\components\AnimationComponent.cpp src\components\ComponentFabric.cpp src\components\IComponent.cpp src\components\MovementComponent.cpp src\components\PlatformerController.cpp src\components\PlatformerPhysicsComponent.cpp src\components\TextureComponent.cpp src\components\TransformComponent.cpp src\systems\PhysicsSystem.cpp src\systems\RenderingSystem.cpp
+         RenderingSystem.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(57): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(85): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(86): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(102): warning C4018: '<' : signed/unsigned mismatch
+         PhysicsSystem.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\physicssystem.cpp(29): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\physicssystem.cpp(32): warning C4018: '<' : signed/unsigned mismatch
+         TransformComponent.cpp
+         TextureComponent.cpp
+         PlatformerPhysicsComponent.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\platformerphysicscomponent.cpp(13): warning C4305: '=' : truncation from 'double' to 'float'
+         PlatformerController.cpp
+         MovementComponent.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\movementcomponent.cpp(13): warning C4305: '=' : truncation from 'double' to 'float'
+         IComponent.cpp
+         ComponentFabric.cpp
+         AnimationComponent.cpp
+         Animation.cpp
+         TextureManager.cpp
+         main.cpp
+         InputHandler.cpp
+         GameObject.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\common\gameobject.cpp(23): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\common\gameobject.cpp(48): warning C4018: '<' : signed/unsigned mismatch
+         Game.cpp
+         Generating Code...
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\componentfabric.cpp(68): warning C4715: 'ComponentFabric::addComponent' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\componentfabric.cpp(86): warning C4715: 'ComponentFabric::getComponent' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\physicssystem.cpp(49): warning C4715: 'PhysicsSystem::getSizeOfComponentArray' : not all control paths return a value
+       Link:
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86" /LIBPATH:"D:\LIBS\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_Image.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.lib" /MACHINE:X86 Debug\Game.obj
+         Debug\GameObject.obj
+         Debug\InputHandler.obj
+         Debug\main.obj
+         Debug\TextureManager.obj
+         Debug\Animation.obj
+         Debug\AnimationComponent.obj
+         Debug\ComponentFabric.obj
+         Debug\IComponent.obj
+         Debug\MovementComponent.obj
+         Debug\PlatformerController.obj
+         Debug\PlatformerPhysicsComponent.obj
+         Debug\TextureComponent.obj
+         Debug\TransformComponent.obj
+         Debug\PhysicsSystem.obj
+         Debug\RenderingSystem.obj
+         SMBVcpp.vcxproj -> D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\SMBVcpp.unsuccessfulbuild".
+         Touching "Debug\SMBVcpp.lastbuildstate".
+     1>Done Building Project "D:\Work\SuperMassiveBlackWhore\SMBVcpp\SMBVcpp.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:26.50
