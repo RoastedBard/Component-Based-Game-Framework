@@ -2,6 +2,7 @@
 #include "ComponentFabric.h"
 #include "RenderingSystem.h"
 #include "PhysicsSystem.h"
+#include "InputSystem.h"
 
 shared_ptr<ComponentFabric> ComponentFabric::_instance = nullptr;
 
@@ -43,9 +44,9 @@ ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsig
 
     case COMPONENT_PLATFORMER_CONTROLLER:
 
-        PhysicsSystem::instance()->addComponent(ownerGameObject, type);
+        InputSystem::instance()->addComponent(ownerGameObject, type);
 
-        newCompHandle.arrayIndex = PhysicsSystem::instance()->getSizeOfComponentArray(COMPONENT_PLATFORMER_CONTROLLER) - 1;
+        newCompHandle.arrayIndex = InputSystem::instance()->getSizeOfComponentArray() - 1;
 
         return newCompHandle;
 
@@ -75,7 +76,7 @@ shared_ptr<IComponent> ComponentFabric::getComponent(ComponentHandle handle)
         return RenderingSystem::instance()->getComponent(handle);
 
     case COMPONENT_PLATFORMER_CONTROLLER:
-        return PhysicsSystem::instance()->getComponent(handle);
+        return InputSystem::instance()->getComponent(handle);
 
     case COMPONENT_MOVEMENT:
         return PhysicsSystem::instance()->getComponent(handle);

@@ -1,13 +1,12 @@
 #include "Game.h"
 #include "InputHandler.h"
+#include "InputSystem.h"
 #include "Enums.h"
 #include "RenderingSystem.h"
 #include "PhysicsSystem.h"
 #include <iostream>
 
-Game::Game(void) //:
-   // _window(nullptr, SDL_DestroyWindow),
-    //_renderer(nullptr, SDL_DestroyRenderer)
+Game::Game(void)
 {
     _isRunning = false;
 }
@@ -109,7 +108,7 @@ void Game::_render()
 
 void Game::_update(float deltaTime, float time)
 {
-    //_testGameObject.updateComponents(deltaTime);
+    InputSystem::instance()->update(deltaTime);
     PhysicsSystem::instance()->update(deltaTime);
     RenderingSystem::instance()->update(deltaTime);
 }
@@ -120,6 +119,8 @@ void Game::_handleEvents()
 
     if(SDL_PollEvent(&e))
     {
+        InputSystem::instance()->processInput(e);
+
         switch(e.type)
         {
         case SDL_QUIT:
@@ -129,97 +130,14 @@ void Game::_handleEvents()
         case SDL_KEYDOWN:
             switch(e.key.keysym.sym)
             {
-                case SDLK_LEFT:
-                    TheInputHandler::Instance()->setKeyPressed(KEY_PRESSED_LEFT);
-                    break;
-                
-                case SDLK_RIGHT:
-                    TheInputHandler::Instance()->setKeyPressed(KEY_PRESSED_RIGHT);
-                    break;
-                
-                case SDLK_UP:
-                    TheInputHandler::Instance()->setKeyPressed(KEY_PRESSED_UP);
-                    break;
-
-                case SDLK_SPACE:
-                    TheInputHandler::Instance()->setKeyPressed(KEY_PRESSED_SPACE);
-                     break;
-
                 case SDLK_ESCAPE:
                     _isRunning = false;
-                    break;
-
-                default:
                     break;
             }
             
             break;
-
-        case SDL_KEYUP:
-            if(e.key.keysym.sym == SDLK_LEFT) 
-                TheInputHandler::Instance()->setKeyPressed(KEY_RELEASED_LEFT);
-            
-            if(e.key.keysym.sym == SDLK_RIGHT)
-                TheInputHandler::Instance()->setKeyPressed(KEY_RELEASED_RIGHT);
-                
-            if(e.key.keysym.sym == SDLK_UP) 
-                TheInputHandler::Instance()->setKeyPressed(KEY_RELEASED_UP);
-            
-            if(e.key.keysym.sym == SDLK_SPACE)
-                TheInputHandler::Instance()->setKeyPressed(KEY_RELEASED_SPACE);
-            break;
         }
     }
-
-    //FOR DEBBUGING INPUT====================================================
-    static unsigned prevKeyPress = -1;
-
-    if(TheInputHandler::Instance()->getKeyPressed() != prevKeyPress)
-    {
-        switch(TheInputHandler::Instance()->getKeyPressed())
-        {
-        case KEY_PRESSED_LEFT:
-            prevKeyPress = KEY_PRESSED_LEFT;
-            cout<<"Key Pressed: KEY_PRESSED_LEFT\n";
-            break;
-
-        case KEY_PRESSED_RIGHT:
-            prevKeyPress = KEY_PRESSED_RIGHT;
-            cout<<"Key Pressed: KEY_PRESSED_RIGHT\n";
-            break;
-
-        case KEY_PRESSED_UP:
-            prevKeyPress = KEY_PRESSED_UP;
-            cout<<"Key Pressed: KEY_PRESSED_UP\n";
-            break;
-
-        case KEY_PRESSED_SPACE:
-            prevKeyPress = KEY_PRESSED_SPACE;
-            cout<<"Key Pressed: KEY_PRESSED_SPACE\n";
-            break;
-
-        case KEY_RELEASED_LEFT:
-            prevKeyPress = KEY_RELEASED_LEFT;
-            cout<<"Key Pressed: KEY_RELEASED_LEFT\n";
-            break;
-
-        case KEY_RELEASED_RIGHT:
-            prevKeyPress = KEY_RELEASED_RIGHT;
-            cout<<"Key Pressed: KEY_RELEASED_RIGHT\n";
-            break;
-
-        case KEY_RELEASED_UP:
-            prevKeyPress = KEY_RELEASED_UP;
-            cout<<"Key Pressed: KEY_RELEASED_UP\n";
-            break;
-
-        case KEY_RELEASED_SPACE:
-            prevKeyPress = KEY_RELEASED_SPACE;
-            cout<<"Key Pressed: KEY_RELEASED_SPACE\n";
-            break;
-        }
-    }
-    //====================================================
 }
 
 void Game::_cleanup()

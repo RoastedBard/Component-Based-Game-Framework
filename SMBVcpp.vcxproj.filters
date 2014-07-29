@@ -69,6 +69,9 @@
     <ClCompile Include="src\systems\RenderingSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\systems\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Animation.h">
@@ -126,6 +129,9 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\systems\RenderingSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\InputSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

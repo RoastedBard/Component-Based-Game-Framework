@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Enums.h"
 #include "InputHandler.h"
+#include "InputSystem.h"
 #include <iostream>
 #include <memory>
 
@@ -31,7 +32,7 @@ void PlatformerController::update(float deltaTime)
     if(_owner->hasComponent(COMPONENT_ANIMATION))
         animComp = static_pointer_cast<AnimationComponent>(_owner->getComponent(COMPONENT_ANIMATION));
 
-    if(movComp->_isOnTheGround == true)
+    /*if(movComp->_isOnTheGround == true)
     {
         if(animComp->getCurrentAnimationEnum() == ANIMATION_JUMP_LEFT)
         {
@@ -50,9 +51,9 @@ void PlatformerController::update(float deltaTime)
             else if(movComp->_isMovingHorizontal == true)
                 animComp->setCurrentAnimation(ANIMATION_WALK_RIGHT);
         }
-    }
+    }*/
 
-    if(TheInputHandler::Instance()->getKeyPressed() == KEY_PRESSED_LEFT)
+    if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_LEFT)
     {
         movComp->_maxVelocity.x = -0.3f;
 
@@ -62,7 +63,7 @@ void PlatformerController::update(float deltaTime)
             animComp->setCurrentAnimation(ANIMATION_WALK_LEFT);
     }
 
-    else if(TheInputHandler::Instance()->getKeyPressed() == KEY_PRESSED_RIGHT)
+    else if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_RIGHT)
     {
         movComp->_maxVelocity.x = 0.3f;
 
@@ -72,7 +73,7 @@ void PlatformerController::update(float deltaTime)
             animComp->setCurrentAnimation(ANIMATION_WALK_RIGHT);
     }
 
-    else if(TheInputHandler::Instance()->getKeyPressed() == KEY_RELEASED_LEFT)
+    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_LEFT)
     {
         movComp->_maxVelocity.x = 0.0f;
 
@@ -82,7 +83,7 @@ void PlatformerController::update(float deltaTime)
             animComp->setCurrentAnimation(ANIMATION_STAND_LEFT);
     }
 
-    else if(TheInputHandler::Instance()->getKeyPressed() == KEY_RELEASED_RIGHT)
+    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_RIGHT)
     {
         movComp->_maxVelocity.x = 0.0f;
 
@@ -92,7 +93,7 @@ void PlatformerController::update(float deltaTime)
             animComp->setCurrentAnimation(ANIMATION_STAND_RIGHT);    
     }
 
-    else if(TheInputHandler::Instance()->getKeyPressed() == KEY_PRESSED_SPACE || TheInputHandler::Instance()->getKeyPressed() == KEY_PRESSED_UP)
+    else if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_SPACE || InputSystem::instance()->getKeyList().back() == KEY_PRESSED_UP)
     {
         movComp->_isJumping = true;
 
@@ -111,7 +112,7 @@ void PlatformerController::update(float deltaTime)
     }
     
 
-    else if(TheInputHandler::Instance()->getKeyPressed() == KEY_RELEASED_SPACE || TheInputHandler::Instance()->getKeyPressed() == KEY_RELEASED_UP)
+    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_SPACE || InputSystem::instance()->getKeyList().back() == KEY_RELEASED_UP)
     {
 
     }

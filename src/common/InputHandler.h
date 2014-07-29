@@ -3,7 +3,9 @@
 
 #include "SDL.h"
 #include "Enums.h"
-#include <vector>
+#include <stack>
+
+using namespace std;
 
 class InputHandler
 {
@@ -26,12 +28,16 @@ public:
     void setKeyPressed(unsigned keyPressed);
     unsigned getKeyPressed() const;
 
+    stack<unsigned>& getKeyStack();
+
 private:
     InputHandler();
     ~InputHandler() {}
     static InputHandler* s_pInstance;
     const Uint8* m_keystates;
     unsigned _keyPressed;
+
+    stack<unsigned> _keyStack;
 };
 typedef InputHandler TheInputHandler;
 
