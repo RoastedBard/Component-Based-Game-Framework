@@ -31,6 +31,8 @@ public:
 
     list<unsigned>& getKeyList();
 
+    unsigned getKeyPressed();
+
 private:
     void _deleteValueFromKeyList(unsigned key); //deletes KEY_PRESSED_ value from keylist when corresponding key is released
 

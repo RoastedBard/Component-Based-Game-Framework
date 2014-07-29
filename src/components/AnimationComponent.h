@@ -36,8 +36,11 @@ public:
     int getCurrentAnimationEnum() const;
     AnimationComponent::AnimationInfo getCurrentAnimation();
     void setCurrentAnimation(int animationId);
-
+    
     virtual void update(float time);
+
+private:
+    void _updateAnimation(); // Some kind of FSM(Finite State Machine) which handling animations switching from one to another
 
 private:
     int _textureId;             // Id of the sprite sheet where the animation is stored (sprite sheets stored somwhere else and are accessible by ID)

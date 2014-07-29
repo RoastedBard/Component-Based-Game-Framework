@@ -1,7 +1,6 @@
 #include "PlatformerController.h"
 #include "TransformComponent.h"
 #include "MovementComponent.h"
-#include "AnimationComponent.h"
 #include "GameObject.h"
 #include "Enums.h"
 #include "InputHandler.h"
@@ -24,97 +23,71 @@ PlatformerController::~PlatformerController(void)
 void PlatformerController::update(float deltaTime)
 {
     shared_ptr<MovementComponent> movComp;
-    shared_ptr<AnimationComponent> animComp;
 
     if(_owner->hasComponent(COMPONENT_MOVEMENT))
         movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(COMPONENT_MOVEMENT));
-    
-    if(_owner->hasComponent(COMPONENT_ANIMATION))
-        animComp = static_pointer_cast<AnimationComponent>(_owner->getComponent(COMPONENT_ANIMATION));
 
-    /*if(movComp->_isOnTheGround == true)
-    {
-        if(animComp->getCurrentAnimationEnum() == ANIMATION_JUMP_LEFT)
-        {
-            if(movComp->_isMovingHorizontal == false)
-                animComp->setCurrentAnimation(ANIMATION_STAND_LEFT);
-
-            else if(movComp->_isMovingHorizontal == true)
-                animComp->setCurrentAnimation(ANIMATION_WALK_LEFT);
-        }
-
-        else if(animComp->getCurrentAnimationEnum() == ANIMATION_JUMP_RIGHT)
-        {
-            if(movComp->_isMovingHorizontal == false)
-                animComp->setCurrentAnimation(ANIMATION_STAND_RIGHT);
-
-            else if(movComp->_isMovingHorizontal == true)
-                animComp->setCurrentAnimation(ANIMATION_WALK_RIGHT);
-        }
-    }*/
-
-    if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_LEFT)
+    if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_LEFT)
     {
         movComp->_maxVelocity.x = -0.3f;
 
         movComp->_isMovingHorizontal = true;
-
-        if(animComp != nullptr)
-            animComp->setCurrentAnimation(ANIMATION_WALK_LEFT);
     }
 
-    else if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_RIGHT)
+    else if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_RIGHT)
     {
         movComp->_maxVelocity.x = 0.3f;
 
         movComp->_isMovingHorizontal = true;
-
-        if(animComp != nullptr)
-            animComp->setCurrentAnimation(ANIMATION_WALK_RIGHT);
     }
 
-    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_LEFT)
+    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_LEFT)
     {
         movComp->_maxVelocity.x = 0.0f;
 
         movComp->_isMovingHorizontal = false;
-
-        if(animComp != nullptr)
-            animComp->setCurrentAnimation(ANIMATION_STAND_LEFT);
     }
 
-    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_RIGHT)
+    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_RIGHT)
     {
         movComp->_maxVelocity.x = 0.0f;
 
-        movComp->_isMovingHorizontal = false;
-
-        if(animComp != nullptr)
-            animComp->setCurrentAnimation(ANIMATION_STAND_RIGHT);    
+        movComp->_isMovingHorizontal = false;    
     }
 
-    else if(InputSystem::instance()->getKeyList().back() == KEY_PRESSED_SPACE || InputSystem::instance()->getKeyList().back() == KEY_PRESSED_UP)
+    else if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_SPACE || InputSystem::instance()->getKeyPressed() == KEY_PRESSED_UP)
     {
         movComp->_isJumping = true;
 
         movComp->_isMovingHorizontal = false;
 
         movComp->_maxVelocity.y = -0.9f;
-
-        if(animComp != nullptr)
-        {
-            if(animComp->getCurrentAnimationEnum() == ANIMATION_WALK_LEFT || animComp->getCurrentAnimationEnum() == ANIMATION_STAND_LEFT)
-                animComp->setCurrentAnimation(ANIMATION_JUMP_LEFT);
-
-            else if(animComp->getCurrentAnimationEnum() == ANIMATION_WALK_RIGHT || animComp->getCurrentAnimationEnum() == ANIMATION_STAND_RIGHT)
-                animComp->setCurrentAnimation(ANIMATION_JUMP_RIGHT);
-        }
     }
     
 
-    else if(InputSystem::instance()->getKeyList().back() == KEY_RELEASED_SPACE || InputSystem::instance()->getKeyList().back() == KEY_RELEASED_UP)
+    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_SPACE || InputSystem::instance()->getKeyPressed() == KEY_RELEASED_UP)
     {
+        // To prevent further moving in the following case:
+        //
+        // KEY_PRESSED_RIGHT
+        // 
+        // >keyList: KEY_NONE, KEY_PRESSED_RIGHT;
+        // 
+        // KEY_PRESSED_UP
+        //
+        // >keyList: KEY_NONE, KEY_PRESSED_RIGHT, KEY_PRESSED_UP;
+        // 
+        // KEY_RELEASED_RIGHT
+        // --deletion of KEY_PRESSED_RIGHT
+        // >keyList: KEY_NONE, KEY_PRESSED_UP;
+        //
+        // KEY_RELEASED_UP
+        // --deletion of KEY_PRESSED_UP and insertion of KEY_RELEASED_UP
+        // >keyList: KEY_NONE, KEY_RELEASED_UP;
+        //
+        // Since no KEY_RELEASED_RIGHT was on the stack, hero will begin to move, cause 'movComp->_maxVelocity.x = 0.0f' was not called, so we call it here:
 
+        movComp->_maxVelocity.x = 0.0f; 
     }
 
     

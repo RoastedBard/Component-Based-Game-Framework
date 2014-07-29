@@ -56,10 +56,15 @@ list<unsigned>& InputSystem::getKeyList()
     return _keyList;
 }
 
+unsigned InputSystem::getKeyPressed()
+{
+    return _keyList.back();
+}
+
 void InputSystem::processInput(SDL_Event e)
 {
     unsigned keyReleased = KEY_NONE;
-    unsigned keyPressed  = KEY_NONE;
+    unsigned keyPressed = KEY_NONE;
 
     switch(e.type)
     {
@@ -124,16 +129,16 @@ void InputSystem::processInput(SDL_Event e)
                      break;
             }
 
-            if(_keyList.back() == KEY_RELEASED_LEFT  ||
+            if(_keyList.back() == KEY_RELEASED_LEFT ||
                _keyList.back() == KEY_RELEASED_RIGHT ||
-               _keyList.back() == KEY_RELEASED_UP    ||
+               _keyList.back() == KEY_RELEASED_UP ||
                _keyList.back() == KEY_RELEASED_SPACE)
                         _keyList.pop_back();
 
             if(_keyList.back() == KEY_NONE && keyReleased != KEY_NONE)
                 _keyList.push_back(keyReleased);
 
-            break;                              
+            break;
     }
 
 }
