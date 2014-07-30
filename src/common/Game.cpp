@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "InputHandler.h"
 #include "InputSystem.h"
 #include "Enums.h"
 #include "RenderingSystem.h"
@@ -97,7 +96,15 @@ void Game::_init()
     static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_JUMP_LEFT, 68, 0, 17, 32, 1, 0, true, false, false);
     static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_JUMP_RIGHT, 68, 0, 17, 32, 1, 0, true, true, false);
     
-    
+    /////////////////////////////////////////////////////////
+    _testStaticObject.addComponent(COMPONENT_SPRITE);
+
+    _testStaticObject.getTranformComponent()._position.x = 200;
+    _testStaticObject.getTranformComponent()._position.y = 20;
+
+    static_pointer_cast<SpriteComponent>(_testStaticObject.getComponent(COMPONENT_SPRITE))->setTextureId(TEXTURE_TEST);
+    static_pointer_cast<SpriteComponent>(_testStaticObject.getComponent(COMPONENT_SPRITE))->addSprite(0, 0, 64, 64, false, false);
+
     _isRunning = true;
 }
 

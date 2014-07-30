@@ -84,17 +84,14 @@
   <ItemGroup>
     <ClCompile Include="src\common\Game.cpp" />
     <ClCompile Include="src\common\GameObject.cpp" />
-    <ClCompile Include="src\common\InputHandler.cpp" />
     <ClCompile Include="src\common\main.cpp" />
-    <ClCompile Include="src\common\TextureManager.cpp" />
-    <ClCompile Include="src\components\Animation.cpp" />
     <ClCompile Include="src\components\AnimationComponent.cpp" />
     <ClCompile Include="src\components\ComponentFabric.cpp" />
     <ClCompile Include="src\components\IComponent.cpp" />
     <ClCompile Include="src\components\MovementComponent.cpp" />
     <ClCompile Include="src\components\PlatformerController.cpp" />
     <ClCompile Include="src\components\PlatformerPhysicsComponent.cpp" />
-    <ClCompile Include="src\components\TextureComponent.cpp" />
+    <ClCompile Include="src\components\SpriteComponent.cpp" />
     <ClCompile Include="src\components\TransformComponent.cpp" />
     <ClCompile Include="src\systems\InputSystem.cpp" />
     <ClCompile Include="src\systems\PhysicsSystem.cpp" />
@@ -104,10 +101,7 @@
     <ClInclude Include="src\common\Enums.h" />
     <ClInclude Include="src\common\Game.h" />
     <ClInclude Include="src\common\GameObject.h" />
-    <ClInclude Include="src\common\InputHandler.h" />
-    <ClInclude Include="src\common\TextureManager.h" />
     <ClInclude Include="src\common\Vector2.h" />
-    <ClInclude Include="src\components\Animation.h" />
     <ClInclude Include="src\components\AnimationComponent.h" />
     <ClInclude Include="src\components\ComponentFabric.h" />
     <ClInclude Include="src\components\ComponentHandle.h" />
@@ -115,7 +109,7 @@
     <ClInclude Include="src\components\MovementComponent.h" />
     <ClInclude Include="src\components\PlatformerController.h" />
     <ClInclude Include="src\components\PlatformerPhysicsComponent.h" />
-    <ClInclude Include="src\components\TextureComponent.h" />
+    <ClInclude Include="src\components\SpriteComponent.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="src\systems\InputSystem.h" />
     <ClInclude Include="src\systems\ISystem.h" />
@@ -123,6 +117,7 @@
     <ClInclude Include="src\systems\RenderingSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="src\common\Vector2.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -8,7 +8,7 @@ enum ComponentIds
     COMPONENT_PLATFORMER_PHYSICS,
     COMPONENT_PLATFORMER_CONTROLLER,
     COMPONENT_ANIMATION,
-    COMPONENT_TEXTURE
+    COMPONENT_SPRITE
 };
 
 enum GameObjectTypes
@@ -34,7 +34,8 @@ enum Key
 
 enum Textures
 {
-    TEXTURE_PLAYER = 0
+    TEXTURE_PLAYER = 0,
+    TEXTURE_TEST
 };
 
 enum Animations
@@ -48,3 +49,4 @@ enum Animations
 };
 
 #endif
+

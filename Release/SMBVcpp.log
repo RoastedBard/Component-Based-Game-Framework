@@ -1,0 +1,45 @@
+﻿Build started 30.07.2014 21:51:58.
+     1>Project "D:\Work\SuperMassiveBlackWhore\SMBVcpp\SMBVcpp.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\SMBVcpp.unsuccessfulbuild".
+       ClCompile:
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components /I"D:\LIBS\SDL2_image-devel-2.0.0-VC\include" /I"D:\LIBS\SDL2-2.0.3\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\common\Game.cpp src\common\GameObject.cpp src\common\main.cpp src\components\AnimationComponent.cpp src\components\ComponentFabric.cpp src\components\IComponent.cpp src\components\PlatformerController.cpp src\components\PlatformerPhysicsComponent.cpp src\components\TransformComponent.cpp src\systems\RenderingSystem.cpp
+         Game.cpp
+         GameObject.cpp
+         main.cpp
+         AnimationComponent.cpp
+         ComponentFabric.cpp
+         IComponent.cpp
+         PlatformerController.cpp
+         PlatformerPhysicsComponent.cpp
+         TransformComponent.cpp
+         RenderingSystem.cpp
+       Link:
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Release\SMBVcpp.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86" /LIBPATH:"D:\LIBS\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_Image.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Release\SMBVcpp.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Release\SMBVcpp.lib" /MACHINE:X86 /SAFESEH Release\Game.obj
+         Release\GameObject.obj
+         Release\main.obj
+         Release\AnimationComponent.obj
+         Release\ComponentFabric.obj
+         Release\IComponent.obj
+         Release\MovementComponent.obj
+         Release\PlatformerController.obj
+         Release\PlatformerPhysicsComponent.obj
+         Release\SpriteComponent.obj
+         Release\TransformComponent.obj
+         Release\InputSystem.obj
+         Release\PhysicsSystem.obj
+         Release\RenderingSystem.obj
+         Generating code
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(72): warning C4715: 'RenderingSystem::getSizeOfComponentArray' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\physicssystem.cpp(43): warning C4715: 'PhysicsSystem::getSizeOfComponentArray' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\componentfabric.cpp(77): warning C4715: 'ComponentFabric::addComponent' : not all control paths return a value
+         Finished generating code
+         SMBVcpp.vcxproj -> D:\Work\SuperMassiveBlackWhore\SMBVcpp\Release\SMBVcpp.exe
+       FinalizeBuildStatus:
+         Deleting file "Release\SMBVcpp.unsuccessfulbuild".
+         Touching "Release\SMBVcpp.lastbuildstate".
+     1>Done Building Project "D:\Work\SuperMassiveBlackWhore\SMBVcpp\SMBVcpp.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.81

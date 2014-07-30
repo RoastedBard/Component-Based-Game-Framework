@@ -3,7 +3,6 @@
 #include "MovementComponent.h"
 #include "GameObject.h"
 #include "Enums.h"
-#include "InputHandler.h"
 #include "InputSystem.h"
 #include <iostream>
 #include <memory>
@@ -27,46 +26,38 @@ void PlatformerController::update(float deltaTime)
     if(_owner->hasComponent(COMPONENT_MOVEMENT))
         movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(COMPONENT_MOVEMENT));
 
-    if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_LEFT)
+    switch(InputSystem::instance()->getKeyPressed())
     {
+    case KEY_PRESSED_LEFT:
         movComp->_maxVelocity.x = -0.3f;
 
-        movComp->_isMovingHorizontal = true;
-    }
+        break;
 
-    else if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_RIGHT)
-    {
+    case KEY_PRESSED_RIGHT:
         movComp->_maxVelocity.x = 0.3f;
 
-        movComp->_isMovingHorizontal = true;
-    }
+        break;
 
-    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_LEFT)
-    {
+    case KEY_RELEASED_LEFT:
         movComp->_maxVelocity.x = 0.0f;
 
-        movComp->_isMovingHorizontal = false;
-    }
+        break;
 
-    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_RIGHT)
-    {
+    case KEY_RELEASED_RIGHT:
         movComp->_maxVelocity.x = 0.0f;
 
-        movComp->_isMovingHorizontal = false;    
-    }
+        break;
 
-    else if(InputSystem::instance()->getKeyPressed() == KEY_PRESSED_SPACE || InputSystem::instance()->getKeyPressed() == KEY_PRESSED_UP)
-    {
+    case KEY_PRESSED_SPACE:
+    case KEY_PRESSED_UP:
         movComp->_isJumping = true;
-
-        movComp->_isMovingHorizontal = false;
-
+        
         movComp->_maxVelocity.y = -0.9f;
-    }
-    
+        break;
 
-    else if(InputSystem::instance()->getKeyPressed() == KEY_RELEASED_SPACE || InputSystem::instance()->getKeyPressed() == KEY_RELEASED_UP)
-    {
+    case KEY_RELEASED_SPACE:
+    case KEY_RELEASED_UP:
+
         // To prevent further moving in the following case:
         //
         // KEY_PRESSED_RIGHT
@@ -86,9 +77,9 @@ void PlatformerController::update(float deltaTime)
         // >keyList: KEY_NONE, KEY_RELEASED_UP;
         //
         // Since no KEY_RELEASED_RIGHT was on the stack, hero will begin to move, cause 'movComp->_maxVelocity.x = 0.0f' was not called, so we call it here:
-
+        
         movComp->_maxVelocity.x = 0.0f; 
-    }
 
-    
+        break;
+    }
 }

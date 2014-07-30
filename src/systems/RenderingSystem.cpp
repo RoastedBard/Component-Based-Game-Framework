@@ -1,6 +1,7 @@
 #include <iostream>
+#include <SDL_image.h>
+
 #include "RenderingSystem.h"
-#include "TextureManager.h"
 #include "Enums.h"
 
 shared_ptr<RenderingSystem> RenderingSystem::_instance = nullptr;
@@ -35,6 +36,11 @@ void RenderingSystem::addComponent(GameObject *ownerGameObject, unsigned compone
         _animationComponents.push_back(make_shared<AnimationComponent>());
         _animationComponents.back()->setOwner(ownerGameObject);
     }
+    if(componentType == COMPONENT_SPRITE)
+    {
+        _spriteComponents.push_back(make_shared<SpriteComponent>());
+        _spriteComponents.back()->setOwner(ownerGameObject);
+    }
 }
 
 shared_ptr<IComponent> RenderingSystem::getComponent(const ComponentHandle& handle)
@@ -43,24 +49,77 @@ shared_ptr<IComponent> RenderingSystem::getComponent(const ComponentHandle& hand
     {
         return _animationComponents[handle.arrayIndex];
     }
+    if(handle.type == COMPONENT_SPRITE)
+    {
+        return _spriteComponents[handle.arrayIndex];
+    }
 
     return nullptr;
 }
 
-unsigned RenderingSystem::getSizeOfComponentArray() const
+std::map<int, SDL_Texture*> RenderingSystem::getTextureMap()
 {
-    return _animationComponents.size();
+    return _textureMap;
 }
 
-void RenderingSystem::update(float deltaTime)
+unsigned RenderingSystem::getSizeOfComponentArray(unsigned type) const
 {
-    for(int i = 0; i < _animationComponents.size(); ++i)
+    if(type == COMPONENT_ANIMATION)
+        return _animationComponents.size();
+
+    if(type == COMPONENT_SPRITE)
+        return _spriteComponents.size();
+}
+
+bool RenderingSystem::loadTexture(std::string filename, int id, SDL_Renderer *renderer)
+{
+    SDL_Surface *tempSurface = IMG_Load(filename.c_str());
+
+    if(tempSurface == 0)
     {
-        _animationComponents[i]->update(deltaTime);
+        return false;
     }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+
+    SDL_FreeSurface(tempSurface);
+
+    if(texture != 0)
+    {
+        _textureMap[id] = texture;
+        return true;
+    }
+
+    return false;
 }
 
-void RenderingSystem::drawFrame(const shared_ptr<AnimationComponent>& animComponent)
+void RenderingSystem::_drawTexture(const shared_ptr<SpriteComponent>& spriteComponent)
+{
+    SDL_Rect srcRect;  // Rectangle area on texture to be drawn
+    SDL_Rect destRect; // Rectangle area on screen to draw texture to
+
+    SpriteComponent::SpriteInfo info = spriteComponent->getSpriteInfo();
+
+    srcRect.x = info.x;
+    srcRect.y = info.y;
+    srcRect.w = destRect.w = info.width;
+    srcRect.h = destRect.h = info.height;
+    destRect.x = (int)spriteComponent->getOwner()->getTranformComponent()._position.x;
+    destRect.y = (int)spriteComponent->getOwner()->getTranformComponent()._position.y;
+    
+    // Passing 0 into the source rectangle parameter will make the renderer use the entire texture. 
+    //Likewise, passing null to the destination rectangle parameter will use the entire renderer for display.
+    if(info.horizontalFlip)
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[spriteComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
+
+    else if(info.verticalFlip)
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[spriteComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_VERTICAL);
+
+    else
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[spriteComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+}
+
+void RenderingSystem::_drawFrame(const shared_ptr<AnimationComponent>& animComponent)
 {
     SDL_Rect srcRect;
     SDL_Rect destRect;
@@ -82,32 +141,41 @@ void RenderingSystem::drawFrame(const shared_ptr<AnimationComponent>& animCompon
     srcRect.w = destRect.w = info.width;
     srcRect.h = destRect.h = info.height;
 
-    destRect.x = animComponent->getOwner()->getTranformComponent()._position.x;
-    destRect.y = animComponent->getOwner()->getTranformComponent()._position.y;
+    destRect.x = (int)animComponent->getOwner()->getTranformComponent()._position.x;
+    destRect.y = (int)animComponent->getOwner()->getTranformComponent()._position.y;
 
     if(info.horizontalFlip)
-        SDL_RenderCopyEx(_renderer.get(), TheTextureManager::instance()->getTextureMap()[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
     
     else if(info.verticalFlip)
-        SDL_RenderCopyEx(_renderer.get(), TheTextureManager::instance()->getTextureMap()[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_VERTICAL);
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_VERTICAL);
     
     else
-        SDL_RenderCopyEx(_renderer.get(), TheTextureManager::instance()->getTextureMap()[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(_renderer.get(), _textureMap[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_NONE);
 }
 
+void RenderingSystem::update(float deltaTime)
+{
+    for(size_t i = 0; i < _animationComponents.size(); ++i)
+    {
+        _animationComponents[i]->update(deltaTime);
+    }
+}
 void RenderingSystem::render()
 {
     SDL_RenderClear(_renderer.get());
 
-    for(int i = 0; i < _animationComponents.size(); ++i)
-        drawFrame(_animationComponents[i]);
+    for(size_t i = 0; i < _animationComponents.size(); ++i)
+        _drawFrame(_animationComponents[i]);
 
+    for(size_t i = 0; i < _spriteComponents.size(); ++i)
+        _drawTexture(_spriteComponents[i]);
     SDL_RenderPresent(_renderer.get());
 }
 
 void RenderingSystem::init(int windowWidth, int windowHigh)
 {
-    _window.reset(SDL_CreateWindow("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHigh, SDL_WINDOW_SHOWN));
+    _window.reset(SDL_CreateWindow("SMBV", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHigh, SDL_WINDOW_SHOWN));
 
     if(_window != nullptr)
     {
@@ -131,7 +199,8 @@ void RenderingSystem::init(int windowWidth, int windowHigh)
         return;
     }
 
-    TheTextureManager::instance()->loadTexture("media/sprites/marioRunning.png", TEXTURE_PLAYER, _renderer.get());
+    loadTexture("media/sprites/marioRunning.png", TEXTURE_PLAYER, _renderer.get());
+    loadTexture("media/sprites/testStatic.png", TEXTURE_TEST, _renderer.get());
 }
 
 void RenderingSystem::cleanup()

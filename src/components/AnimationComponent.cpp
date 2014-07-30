@@ -62,6 +62,7 @@ void AnimationComponent::addAnimation(int animationId, int startframeX, int star
     if(_textureId == -1)
     {
         std::cout<<"You must specify sprite sheet for animation.\n";
+        return;
     }
 
     AnimationInfo info;

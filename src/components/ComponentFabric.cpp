@@ -38,7 +38,7 @@ ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsig
 
         RenderingSystem::instance()->addComponent(ownerGameObject, type); // Adding a component
         
-        newCompHandle.arrayIndex =  RenderingSystem::instance()->getSizeOfComponentArray() - 1; // Taking index in array of Components
+        newCompHandle.arrayIndex =  RenderingSystem::instance()->getSizeOfComponentArray(COMPONENT_ANIMATION) - 1; // Taking index in array of Components
         
         return newCompHandle;
 
@@ -65,6 +65,14 @@ ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsig
         newCompHandle.arrayIndex = PhysicsSystem::instance()->getSizeOfComponentArray(COMPONENT_PLATFORMER_PHYSICS) - 1;
 
         return newCompHandle;
+
+    case COMPONENT_SPRITE:
+        
+        RenderingSystem::instance()->addComponent(ownerGameObject, type);
+        
+        newCompHandle.arrayIndex = RenderingSystem::instance()->getSizeOfComponentArray(COMPONENT_SPRITE) - 1;
+
+        return newCompHandle;
     }
 }
 
@@ -83,5 +91,10 @@ shared_ptr<IComponent> ComponentFabric::getComponent(ComponentHandle handle)
 
     case COMPONENT_PLATFORMER_PHYSICS:
         return PhysicsSystem::instance()->getComponent(handle);
+
+    case COMPONENT_SPRITE:
+        return RenderingSystem::instance()->getComponent(handle);
     }
+
+    return nullptr;
 }

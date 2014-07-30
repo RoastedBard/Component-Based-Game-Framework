@@ -26,6 +26,7 @@ private:
 private:
     bool _isRunning;
     GameObject _testGameObject;
+    GameObject _testStaticObject;
 };
 
 #endif

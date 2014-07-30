@@ -10,7 +10,7 @@ PlatformerPhysicsComponent::PlatformerPhysicsComponent(void)
     _id = COMPONENT_PLATFORMER_PHYSICS;
     _isUpdateable = true;
     _gravity.x = 0;
-    _gravity.y = 0.3;
+    _gravity.y = 0.3f;
 }
 
 PlatformerPhysicsComponent::~PlatformerPhysicsComponent(void)
@@ -73,7 +73,5 @@ void PlatformerPhysicsComponent::_performMovement(float deltaTime)
 void PlatformerPhysicsComponent::_performJumping(float deltaTime)
 {
     if(movComp->_isOnTheGround)
-    {
         movComp->_isOnTheGround = false;
-    }
 }

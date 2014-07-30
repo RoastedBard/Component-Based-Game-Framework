@@ -26,7 +26,7 @@ shared_ptr<PhysicsSystem> PhysicsSystem::instance()
 
 void PhysicsSystem::update(float deltaTime)
 {
-    for(int i = 0; i < _physicsComponents.size(); ++i)
+    for(size_t i = 0; i < _physicsComponents.size(); ++i)
         _physicsComponents[i]->update(deltaTime);
 }
 

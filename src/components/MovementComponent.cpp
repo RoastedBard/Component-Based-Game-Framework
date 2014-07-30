@@ -10,8 +10,8 @@ MovementComponent::MovementComponent(void)
     _velocity.x = 0;
     _velocity.y = 0;
 
-    _acceleration.x = 0.03;
-    _acceleration.y = 4.75;
+    _acceleration.x = 0.03f;
+    _acceleration.y = 4.75f;
 
     _maxVelocity.x = 0;
     _maxVelocity.y = 0;

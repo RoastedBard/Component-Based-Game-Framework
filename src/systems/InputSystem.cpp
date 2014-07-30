@@ -145,7 +145,7 @@ void InputSystem::processInput(SDL_Event e)
 
 void InputSystem::update(float deltaTime)
 {
-    for(int i = 0; i < _platformerControllers.size(); ++i)
+    for(size_t i = 0; i < _platformerControllers.size(); ++i)
         _platformerControllers[i]->update(deltaTime);
 }
 
