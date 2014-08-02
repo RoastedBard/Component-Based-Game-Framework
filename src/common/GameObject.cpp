@@ -20,7 +20,7 @@ GameObject::~GameObject()
 
 shared_ptr<IComponent> GameObject::getComponent(unsigned id)
 {
-    for(size_t i = 0; i < _componentArray.size(); ++i)
+    for(unsigned i = 0; i < _componentArray.size(); ++i)
     {
         if(id == _componentArray[i].type)
             return ComponentFabric::instance()->getComponent(_componentArray[i]);
@@ -45,7 +45,7 @@ void GameObject::addComponent(unsigned type)
 
 bool GameObject::hasComponent(unsigned type) const
 {
-    for(size_t i = 0; i < _componentArray.size(); ++i)
+    for(unsigned i = 0; i < _componentArray.size(); ++i)
     {
         if(type == _componentArray[i].type)
             return true;
@@ -56,7 +56,7 @@ bool GameObject::hasComponent(unsigned type) const
 
 void GameObject::updateComponents(float deltaTime)
 {
-   /* for(size_t i = 0; i < _componentArray.size(); ++i)
+   /* for(unsigned i = 0; i < _componentArray.size(); ++i)
     {
         if(ComponentFabric::instance()->getComponent(_componentArray[i])->isUpdateable())
             ComponentFabric::instance()->getComponent(_componentArray[i])->update(deltaTime);

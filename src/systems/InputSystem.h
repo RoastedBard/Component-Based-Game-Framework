@@ -22,7 +22,7 @@ public:
 public:
     virtual void addComponent(GameObject *ownerGameObject, unsigned componentType);
     virtual shared_ptr<IComponent> getComponent(const ComponentHandle& handle);
-    unsigned getSizeOfComponentArray() const;
+    unsigned getSizeOfComponentArray(unsigned type) const;
 
 public:
     void processInput(SDL_Event e);

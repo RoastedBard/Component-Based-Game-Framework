@@ -46,7 +46,7 @@ shared_ptr<IComponent> InputSystem::getComponent(const ComponentHandle& handle)
     }
 }
 
-unsigned InputSystem::getSizeOfComponentArray() const
+unsigned InputSystem::getSizeOfComponentArray(unsigned type) const
 {
     return _platformerControllers.size();
 }
@@ -145,7 +145,7 @@ void InputSystem::processInput(SDL_Event e)
 
 void InputSystem::update(float deltaTime)
 {
-    for(size_t i = 0; i < _platformerControllers.size(); ++i)
+    for(unsigned i = 0; i < _platformerControllers.size(); ++i)
         _platformerControllers[i]->update(deltaTime);
 }
 

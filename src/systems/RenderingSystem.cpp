@@ -156,19 +156,20 @@ void RenderingSystem::_drawFrame(const shared_ptr<AnimationComponent>& animCompo
 
 void RenderingSystem::update(float deltaTime)
 {
-    for(size_t i = 0; i < _animationComponents.size(); ++i)
+    for(unsigned i = 0; i < _animationComponents.size(); ++i)
     {
         _animationComponents[i]->update(deltaTime);
     }
 }
+
 void RenderingSystem::render()
 {
     SDL_RenderClear(_renderer.get());
 
-    for(size_t i = 0; i < _animationComponents.size(); ++i)
+    for(unsigned i = 0; i < _animationComponents.size(); ++i)
         _drawFrame(_animationComponents[i]);
 
-    for(size_t i = 0; i < _spriteComponents.size(); ++i)
+    for(unsigned i = 0; i < _spriteComponents.size(); ++i)
         _drawTexture(_spriteComponents[i]);
     SDL_RenderPresent(_renderer.get());
 }

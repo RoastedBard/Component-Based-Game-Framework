@@ -26,53 +26,38 @@ shared_ptr<ComponentFabric> ComponentFabric::instance()
     return _instance;
 }
 
-ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsigned type)
+ComponentHandle ComponentFabric::_addComponent(unsigned type, GameObject *ownerGameObject, shared_ptr<ISystem> system)
 {
     ComponentHandle newCompHandle;
 
     newCompHandle.type = type;
 
+    system->addComponent(ownerGameObject, type); // Adding a component
+    
+    newCompHandle.arrayIndex =  RenderingSystem::instance()->getSizeOfComponentArray(type) - 1; // Taking index in array of Components
+    
+    return newCompHandle;
+}
+
+
+ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsigned type)
+{
     switch(type)
     {
     case COMPONENT_ANIMATION:
-
-        RenderingSystem::instance()->addComponent(ownerGameObject, type); // Adding a component
-        
-        newCompHandle.arrayIndex =  RenderingSystem::instance()->getSizeOfComponentArray(COMPONENT_ANIMATION) - 1; // Taking index in array of Components
-        
-        return newCompHandle;
+        return _addComponent(type, ownerGameObject, RenderingSystem::instance());
 
     case COMPONENT_PLATFORMER_CONTROLLER:
-
-        InputSystem::instance()->addComponent(ownerGameObject, type);
-
-        newCompHandle.arrayIndex = InputSystem::instance()->getSizeOfComponentArray() - 1;
-
-        return newCompHandle;
+        return _addComponent(type, ownerGameObject, InputSystem::instance());
 
     case COMPONENT_MOVEMENT:
-
-        PhysicsSystem::instance()->addComponent(ownerGameObject, type);
-
-        newCompHandle.arrayIndex = PhysicsSystem::instance()->getSizeOfComponentArray(COMPONENT_MOVEMENT) - 1;
-
-        return newCompHandle;
+        return _addComponent(type, ownerGameObject, PhysicsSystem::instance());
 
     case COMPONENT_PLATFORMER_PHYSICS:
-        
-        PhysicsSystem::instance()->addComponent(ownerGameObject, type);
-        
-        newCompHandle.arrayIndex = PhysicsSystem::instance()->getSizeOfComponentArray(COMPONENT_PLATFORMER_PHYSICS) - 1;
-
-        return newCompHandle;
+        return _addComponent(type, ownerGameObject, PhysicsSystem::instance());
 
     case COMPONENT_SPRITE:
-        
-        RenderingSystem::instance()->addComponent(ownerGameObject, type);
-        
-        newCompHandle.arrayIndex = RenderingSystem::instance()->getSizeOfComponentArray(COMPONENT_SPRITE) - 1;
-
-        return newCompHandle;
+        return _addComponent(type, ownerGameObject, RenderingSystem::instance());
     }
 }
 
