@@ -22,11 +22,11 @@ private:
     void _update(float deltaTime, float time);
     void _handleEvents();
     void _cleanup();
-
+    
 private:
     bool _isRunning;
-    GameObject _testGameObject;
-    GameObject _testStaticObject;
+    //GameObject _testGameObject;
+    //GameObject _testStaticObject;
 };
 
 #endif

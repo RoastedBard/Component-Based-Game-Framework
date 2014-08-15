@@ -54,6 +54,16 @@ bool GameObject::hasComponent(unsigned type) const
     return false;
 }
 
+void GameObject::setIndexInGameObjectArray(unsigned index)
+{
+    _indexInGameObjectArray = index;
+}
+
+unsigned GameObject::getIndexInGameObjectArray() const
+{
+    return _indexInGameObjectArray;
+}
+
 void GameObject::updateComponents(float deltaTime)
 {
    /* for(unsigned i = 0; i < _componentArray.size(); ++i)

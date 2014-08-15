@@ -18,6 +18,7 @@ public:
 public:
     virtual void addComponent(GameObject *ownerGameObject, unsigned componentType) = 0;
     virtual shared_ptr<IComponent> getComponent(const ComponentHandle& handle) = 0;
+    virtual unsigned getSizeOfComponentArray(unsigned type) const = 0;
 };
 
 #endif

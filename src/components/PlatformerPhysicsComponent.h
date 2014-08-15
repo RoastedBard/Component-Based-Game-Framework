@@ -1,5 +1,5 @@
-#ifndef _PlatformerPhysicsComponent_H_
-#define _PlatformerPhysicsComponent_H_
+#ifndef _PLATFORMERPHYSICSCOMPONENT_H_
+#define _PLATFORMERPHYSICSCOMPONENT_H_
 
 #include "icomponent.h"
 #include "MovementComponent.h"

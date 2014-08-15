@@ -3,6 +3,8 @@
 #include "Enums.h"
 #include "RenderingSystem.h"
 #include "PhysicsSystem.h"
+#include "ScriptSystem.h"
+#include "GameObjectFabric.h"
 #include <iostream>
 
 Game::Game(void)
@@ -80,30 +82,10 @@ void Game::_init()
 
     std::cout << ">init success\n";
 
-    _testGameObject.addComponent(COMPONENT_ANIMATION);
-    _testGameObject.addComponent(COMPONENT_PLATFORMER_CONTROLLER);
-    _testGameObject.addComponent(COMPONENT_MOVEMENT);
-    _testGameObject.addComponent(COMPONENT_PLATFORMER_PHYSICS);
-
-    _testGameObject.getTranformComponent()._position.x = 200;
-    _testGameObject.getTranformComponent()._position.y = 10;
-
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->setTextureId(TEXTURE_PLAYER);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_WALK_LEFT, 0, 0, 17, 32, 3, 70, true, true, false);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_STAND_RIGHT, 51, 0, 17, 32, 1, 0, true, false, false);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_STAND_LEFT, 51, 0, 17, 32, 1, 0, true, true, false);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_WALK_RIGHT, 0, 0, 17, 32, 3, 70, true, false, false);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_JUMP_LEFT, 68, 0, 17, 32, 1, 0, true, false, false);
-    static_pointer_cast<AnimationComponent>(_testGameObject.getComponent(COMPONENT_ANIMATION))->addAnimation(ANIMATION_JUMP_RIGHT, 68, 0, 17, 32, 1, 0, true, true, false);
     
-    /////////////////////////////////////////////////////////
-    _testStaticObject.addComponent(COMPONENT_SPRITE);
-
-    _testStaticObject.getTranformComponent()._position.x = 200;
-    _testStaticObject.getTranformComponent()._position.y = 20;
-
-    static_pointer_cast<SpriteComponent>(_testStaticObject.getComponent(COMPONENT_SPRITE))->setTextureId(TEXTURE_TEST);
-    static_pointer_cast<SpriteComponent>(_testStaticObject.getComponent(COMPONENT_SPRITE))->addSprite(0, 0, 64, 64, false, false);
+    ScriptSystem::instance()->init();
+    GameObjectFabric::instance()->loadGameObjects("media/scripts/GameObjects.lua");
+    ScriptSystem::instance()->startScripts();
 
     _isRunning = true;
 }
@@ -117,6 +99,7 @@ void Game::_update(float deltaTime, float time)
 {
     InputSystem::instance()->update(deltaTime);
     PhysicsSystem::instance()->update(deltaTime);
+    ScriptSystem::instance()->update(deltaTime);
     RenderingSystem::instance()->update(deltaTime);
 }
 
@@ -124,7 +107,7 @@ void Game::_handleEvents()
 {
     SDL_Event e;
 
-    if(SDL_PollEvent(&e))
+    while(SDL_PollEvent(&e))
     {
         InputSystem::instance()->processInput(e);
 

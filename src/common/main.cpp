@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "Game.h"
 
 int main(int argc, char* args[])

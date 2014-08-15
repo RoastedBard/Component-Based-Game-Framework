@@ -31,12 +31,12 @@ shared_ptr<RenderingSystem> RenderingSystem::instance()
 
 void RenderingSystem::addComponent(GameObject *ownerGameObject, unsigned componentType)
 {
-    if(componentType == COMPONENT_ANIMATION)
+    if(componentType == Enums::COMPONENT_ANIMATION)
     {
         _animationComponents.push_back(make_shared<AnimationComponent>());
         _animationComponents.back()->setOwner(ownerGameObject);
     }
-    if(componentType == COMPONENT_SPRITE)
+    if(componentType == Enums::COMPONENT_SPRITE)
     {
         _spriteComponents.push_back(make_shared<SpriteComponent>());
         _spriteComponents.back()->setOwner(ownerGameObject);
@@ -45,11 +45,11 @@ void RenderingSystem::addComponent(GameObject *ownerGameObject, unsigned compone
 
 shared_ptr<IComponent> RenderingSystem::getComponent(const ComponentHandle& handle)
 {
-    if(handle.type == COMPONENT_ANIMATION)
+    if(handle.type == Enums::COMPONENT_ANIMATION)
     {
         return _animationComponents[handle.arrayIndex];
     }
-    if(handle.type == COMPONENT_SPRITE)
+    if(handle.type == Enums::COMPONENT_SPRITE)
     {
         return _spriteComponents[handle.arrayIndex];
     }
@@ -64,10 +64,10 @@ std::map<int, SDL_Texture*> RenderingSystem::getTextureMap()
 
 unsigned RenderingSystem::getSizeOfComponentArray(unsigned type) const
 {
-    if(type == COMPONENT_ANIMATION)
+    if(type == Enums::COMPONENT_ANIMATION)
         return _animationComponents.size();
 
-    if(type == COMPONENT_SPRITE)
+    if(type == Enums::COMPONENT_SPRITE)
         return _spriteComponents.size();
 }
 
@@ -171,6 +171,7 @@ void RenderingSystem::render()
 
     for(unsigned i = 0; i < _spriteComponents.size(); ++i)
         _drawTexture(_spriteComponents[i]);
+
     SDL_RenderPresent(_renderer.get());
 }
 
@@ -200,8 +201,8 @@ void RenderingSystem::init(int windowWidth, int windowHigh)
         return;
     }
 
-    loadTexture("media/sprites/marioRunning.png", TEXTURE_PLAYER, _renderer.get());
-    loadTexture("media/sprites/testStatic.png", TEXTURE_TEST, _renderer.get());
+    loadTexture("media/sprites/marioRunning.png", Enums::TEXTURE_PLAYER, _renderer.get());
+    loadTexture("media/sprites/platform.png", Enums::TEXTURE_TEST, _renderer.get());
 }
 
 void RenderingSystem::cleanup()

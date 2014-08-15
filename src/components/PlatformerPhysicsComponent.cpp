@@ -7,7 +7,7 @@
 
 PlatformerPhysicsComponent::PlatformerPhysicsComponent(void)
 {
-    _id = COMPONENT_PLATFORMER_PHYSICS;
+    _id = Enums::COMPONENT_PLATFORMER_PHYSICS;
     _isUpdateable = true;
     _gravity.x = 0;
     _gravity.y = 0.3f;
@@ -21,7 +21,7 @@ PlatformerPhysicsComponent::~PlatformerPhysicsComponent(void)
 void PlatformerPhysicsComponent::update(float deltaTime)
 {
     if(movComp == nullptr)
-        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(COMPONENT_MOVEMENT));
+        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(Enums::COMPONENT_MOVEMENT));
 
     if(movComp->_isJumping)
         _performJumping(deltaTime);
@@ -66,6 +66,9 @@ void PlatformerPhysicsComponent::_performMovement(float deltaTime)
 {
     movComp->_velocity.x = _lerp(movComp->_maxVelocity.x, movComp->_velocity.x, movComp->_acceleration.x);
     movComp->_velocity.y = _lerp(movComp->_maxVelocity.y, movComp->_velocity.y, movComp->_acceleration.y);
+
+    //if(movComp->_velocity.x == movComp->_maxVelocity.x)
+    //    movComp->_maxVelocity.x = -movComp->_maxVelocity.x;
 
     _owner->getTranformComponent()._position += movComp->_velocity * deltaTime;
 }

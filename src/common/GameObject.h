@@ -21,11 +21,32 @@ public:
     void updateComponents(float deltaTime); // Maybe not the best idea
     bool hasComponent(unsigned type) const;
     TransformComponent& getTranformComponent();
+    void setIndexInGameObjectArray(unsigned index);
+    unsigned getIndexInGameObjectArray() const;
+
+    template<class T>
+    T* getComponentLua(int type);
 
 private:
     vector<ComponentHandle> _componentArray;
     TransformComponent _transformComponent;
+    unsigned _indexInGameObjectArray;
 
 };
+
+template<class T>
+T* GameObject::getComponentLua(int type)
+{
+    switch(type)
+    {
+        case Enums::COMPONENT_TRANSFORM:
+            return static_cast<T*>(this->getComponent(Enums::COMPONENT_TRANSFORM).get());
+        break;
+        
+        case Enums::COMPONENT_MOVEMENT:
+            return static_cast<T*>(this->getComponent(Enums::COMPONENT_MOVEMENT).get());
+        break;
+    }
+}
 
 #endif

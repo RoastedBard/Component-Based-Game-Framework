@@ -3,6 +3,7 @@
 #include "RenderingSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
+#include "ScriptSystem.h"
 
 shared_ptr<ComponentFabric> ComponentFabric::_instance = nullptr;
 
@@ -34,7 +35,7 @@ ComponentHandle ComponentFabric::_addComponent(unsigned type, GameObject *ownerG
 
     system->addComponent(ownerGameObject, type); // Adding a component
     
-    newCompHandle.arrayIndex =  RenderingSystem::instance()->getSizeOfComponentArray(type) - 1; // Taking index in array of Components
+    newCompHandle.arrayIndex = system->getSizeOfComponentArray(type) - 1; // Taking index in array of Components
     
     return newCompHandle;
 }
@@ -44,20 +45,23 @@ ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsig
 {
     switch(type)
     {
-    case COMPONENT_ANIMATION:
+    case Enums::COMPONENT_ANIMATION:
         return _addComponent(type, ownerGameObject, RenderingSystem::instance());
 
-    case COMPONENT_PLATFORMER_CONTROLLER:
+    case Enums::COMPONENT_PLATFORMER_CONTROLLER:
         return _addComponent(type, ownerGameObject, InputSystem::instance());
 
-    case COMPONENT_MOVEMENT:
+    case Enums::COMPONENT_MOVEMENT:
         return _addComponent(type, ownerGameObject, PhysicsSystem::instance());
 
-    case COMPONENT_PLATFORMER_PHYSICS:
+    case Enums::COMPONENT_PLATFORMER_PHYSICS:
         return _addComponent(type, ownerGameObject, PhysicsSystem::instance());
 
-    case COMPONENT_SPRITE:
+    case Enums::COMPONENT_SPRITE:
         return _addComponent(type, ownerGameObject, RenderingSystem::instance());
+
+    case Enums::COMPONENT_SCRIPT:
+        return _addComponent(type, ownerGameObject, ScriptSystem::instance());
     }
 }
 
@@ -65,20 +69,23 @@ shared_ptr<IComponent> ComponentFabric::getComponent(ComponentHandle handle)
 {
     switch(handle.type)
     {
-    case COMPONENT_ANIMATION:
+    case Enums::COMPONENT_ANIMATION:
         return RenderingSystem::instance()->getComponent(handle);
 
-    case COMPONENT_PLATFORMER_CONTROLLER:
+    case Enums::COMPONENT_PLATFORMER_CONTROLLER:
         return InputSystem::instance()->getComponent(handle);
 
-    case COMPONENT_MOVEMENT:
+    case Enums::COMPONENT_MOVEMENT:
         return PhysicsSystem::instance()->getComponent(handle);
 
-    case COMPONENT_PLATFORMER_PHYSICS:
+    case Enums::COMPONENT_PLATFORMER_PHYSICS:
         return PhysicsSystem::instance()->getComponent(handle);
 
-    case COMPONENT_SPRITE:
+    case Enums::COMPONENT_SPRITE:
         return RenderingSystem::instance()->getComponent(handle);
+
+    case Enums::COMPONENT_SCRIPT:
+        return ScriptSystem::instance()->getComponent(handle);
     }
 
     return nullptr;

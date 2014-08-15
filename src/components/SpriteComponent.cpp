@@ -6,7 +6,7 @@
 SpriteComponent::SpriteComponent(void)
 {
     _textureId = -1;
-    _id = COMPONENT_SPRITE;
+    _id = Enums::COMPONENT_SPRITE;
 }
 
 

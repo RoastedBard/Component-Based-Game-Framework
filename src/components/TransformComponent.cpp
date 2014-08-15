@@ -4,7 +4,7 @@
 
 TransformComponent::TransformComponent(void)
 {
-    _id = COMPONENT_TRANSFORM;
+    _id = Enums::COMPONENT_TRANSFORM;
     _isUpdateable = false;
 
     _position.x = 0;

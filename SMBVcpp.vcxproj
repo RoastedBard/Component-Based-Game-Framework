@@ -52,13 +52,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\LIBS\MyLuaAndLuabindBundle\luabind\include;D:\LIBS\MyLuaAndLuabindBundle\lua\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\LIBS\MyLuaAndLuabindBundle\luabind\msvc-11.0-x86\debug;D:\LIBS\MyLuaAndLuabindBundle\lua\msvc-11.0-x86\debug;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;myLuabind_d.lib;myLua_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -70,15 +70,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\LIBS\MyLuaAndLuabindBundle\luabind\include;D:\LIBS\MyLuaAndLuabindBundle\lua\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\LIBS\MyLuaAndLuabindBundle\luabind\msvc-11.0-x86\release;D:\LIBS\MyLuaAndLuabindBundle\lua\msvc-11.0-x86\release;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;myLua_r.lib;myLuabind_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -87,15 +87,18 @@
     <ClCompile Include="src\common\main.cpp" />
     <ClCompile Include="src\components\AnimationComponent.cpp" />
     <ClCompile Include="src\components\ComponentFabric.cpp" />
+    <ClCompile Include="src\components\GameObjectFabric.cpp" />
     <ClCompile Include="src\components\IComponent.cpp" />
     <ClCompile Include="src\components\MovementComponent.cpp" />
     <ClCompile Include="src\components\PlatformerController.cpp" />
     <ClCompile Include="src\components\PlatformerPhysicsComponent.cpp" />
+    <ClCompile Include="src\components\ScriptComponent.cpp" />
     <ClCompile Include="src\components\SpriteComponent.cpp" />
     <ClCompile Include="src\components\TransformComponent.cpp" />
     <ClCompile Include="src\systems\InputSystem.cpp" />
     <ClCompile Include="src\systems\PhysicsSystem.cpp" />
     <ClCompile Include="src\systems\RenderingSystem.cpp" />
+    <ClCompile Include="src\systems\ScriptSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\Enums.h" />
@@ -105,16 +108,19 @@
     <ClInclude Include="src\components\AnimationComponent.h" />
     <ClInclude Include="src\components\ComponentFabric.h" />
     <ClInclude Include="src\components\ComponentHandle.h" />
+    <ClInclude Include="src\components\GameObjectFabric.h" />
     <ClInclude Include="src\components\IComponent.h" />
     <ClInclude Include="src\components\MovementComponent.h" />
     <ClInclude Include="src\components\PlatformerController.h" />
     <ClInclude Include="src\components\PlatformerPhysicsComponent.h" />
+    <ClInclude Include="src\components\ScriptComponent.h" />
     <ClInclude Include="src\components\SpriteComponent.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="src\systems\InputSystem.h" />
     <ClInclude Include="src\systems\ISystem.h" />
     <ClInclude Include="src\systems\PhysicsSystem.h" />
     <ClInclude Include="src\systems\RenderingSystem.h" />
+    <ClInclude Include="src\systems\ScriptSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -9,7 +9,7 @@
 
 PlatformerController::PlatformerController(void)
 {
-    _id = COMPONENT_PLATFORMER_CONTROLLER;
+    _id = Enums::COMPONENT_PLATFORMER_CONTROLLER;
     _isUpdateable = true;
 }
 
@@ -23,62 +23,68 @@ void PlatformerController::update(float deltaTime)
 {
     shared_ptr<MovementComponent> movComp;
 
-    if(_owner->hasComponent(COMPONENT_MOVEMENT))
-        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(COMPONENT_MOVEMENT));
+    if(_owner->hasComponent(Enums::COMPONENT_MOVEMENT))
+        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(Enums::COMPONENT_MOVEMENT));
 
     switch(InputSystem::instance()->getKeyPressed())
     {
-    case KEY_PRESSED_LEFT:
+    case Enums::KEY_PRESSED_LEFT:
         movComp->_maxVelocity.x = -0.3f;
+        movComp->_direction = Enums::DIRECTION_LEFT;
 
         break;
 
-    case KEY_PRESSED_RIGHT:
+    case Enums::KEY_PRESSED_RIGHT:
         movComp->_maxVelocity.x = 0.3f;
+        movComp->_direction = Enums::DIRECTION_RIGHT;
 
         break;
 
-    case KEY_RELEASED_LEFT:
+    case Enums::KEY_RELEASED_LEFT:
         movComp->_maxVelocity.x = 0.0f;
+        movComp->_direction = Enums::DIRECTION_NONE;
 
         break;
 
-    case KEY_RELEASED_RIGHT:
+    case Enums::KEY_RELEASED_RIGHT:
         movComp->_maxVelocity.x = 0.0f;
+        movComp->_direction = Enums::DIRECTION_NONE;
 
         break;
 
-    case KEY_PRESSED_SPACE:
-    case KEY_PRESSED_UP:
+    case Enums::KEY_PRESSED_SPACE:
+    case Enums::KEY_PRESSED_UP:
         movComp->_isJumping = true;
-        
         movComp->_maxVelocity.y = -0.9f;
+        movComp->_direction = Enums::DIRECTION_UP;
+
         break;
 
-    case KEY_RELEASED_SPACE:
-    case KEY_RELEASED_UP:
+    case Enums::KEY_RELEASED_SPACE:
+    case Enums::KEY_RELEASED_UP:
 
         // To prevent further moving in the following case:
         //
-        // KEY_PRESSED_RIGHT
+        // Enums::KEY_PRESSED_RIGHT
         // 
-        // >keyList: KEY_NONE, KEY_PRESSED_RIGHT;
+        // >keyList: Enums::KEY_NONE, Enums::KEY_PRESSED_RIGHT;
         // 
-        // KEY_PRESSED_UP
+        // Enums::KEY_PRESSED_UP
         //
-        // >keyList: KEY_NONE, KEY_PRESSED_RIGHT, KEY_PRESSED_UP;
+        // >keyList: Enums::KEY_NONE, Enums::KEY_PRESSED_RIGHT, Enums::KEY_PRESSED_UP;
         // 
-        // KEY_RELEASED_RIGHT
-        // --deletion of KEY_PRESSED_RIGHT
-        // >keyList: KEY_NONE, KEY_PRESSED_UP;
+        // Enums::KEY_RELEASED_RIGHT
+        // --deletion of Enums::KEY_PRESSED_RIGHT
+        // >keyList: Enums::KEY_NONE, Enums::KEY_PRESSED_UP;
         //
-        // KEY_RELEASED_UP
-        // --deletion of KEY_PRESSED_UP and insertion of KEY_RELEASED_UP
-        // >keyList: KEY_NONE, KEY_RELEASED_UP;
+        // Enums::KEY_RELEASED_UP
+        // --deletion of Enums::KEY_PRESSED_UP and insertion of Enums::KEY_RELEASED_UP
+        // >keyList: Enums::KEY_NONE, Enums::KEY_RELEASED_UP;
         //
-        // Since no KEY_RELEASED_RIGHT was on the stack, hero will begin to move, cause 'movComp->_maxVelocity.x = 0.0f' was not called, so we call it here:
+        // Since no Enums::KEY_RELEASED_RIGHT was on the stack, hero will begin to move, cause 'movComp->_maxVelocity.x = 0.0f' was not called, so we call it here:
         
         movComp->_maxVelocity.x = 0.0f; 
+        movComp->_direction = Enums::DIRECTION_NONE;
 
         break;
     }

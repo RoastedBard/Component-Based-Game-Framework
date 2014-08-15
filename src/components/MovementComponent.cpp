@@ -4,22 +4,22 @@
 
 MovementComponent::MovementComponent(void)
 {
-    _id = COMPONENT_MOVEMENT;
+    _id = Enums::COMPONENT_MOVEMENT;
     _isUpdateable = false;
 
     _velocity.x = 0;
     _velocity.y = 0;
 
-    _acceleration.x = 0.03f;
-    _acceleration.y = 4.75f;
+    _acceleration.x = 0;
+    _acceleration.y = 0;
 
     _maxVelocity.x = 0;
     _maxVelocity.y = 0;
 
+    _direction = Enums::DIRECTION_NONE;
+
     _isJumping = false;
     _isOnTheGround = false;
-
-    _isMovingHorizontal = false;
 }
 
 

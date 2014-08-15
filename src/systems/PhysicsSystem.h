@@ -23,7 +23,7 @@ public:
     virtual void addComponent(GameObject *ownerGameObject, unsigned componentType);
     virtual shared_ptr<IComponent> getComponent(const ComponentHandle& handle);
 
-    unsigned getSizeOfComponentArray(unsigned type) const;
+    virtual unsigned getSizeOfComponentArray(unsigned type) const;
     void update(float deltaTime);
 
 private:

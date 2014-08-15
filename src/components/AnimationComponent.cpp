@@ -13,7 +13,7 @@ AnimationComponent::AnimationComponent(void)
     _textureId = -1;
     _currentAnimation = 0;
     _isUpdateable = true;
-    _id = COMPONENT_ANIMATION;
+    _id = Enums::COMPONENT_ANIMATION;
 }
 
 
@@ -79,93 +79,98 @@ void AnimationComponent::addAnimation(int animationId, int startframeX, int star
     info.verticalFlip = verticalFlip;
 
     _animations[animationId] = info;
+
+    _currentAnimation = animationId;
 }
 
 void AnimationComponent::_updateAnimation()
 {   
+    if(_animations.size() <= 1)
+        return;
+    
     shared_ptr<MovementComponent> movComp;
 
-    if(_owner->hasComponent(COMPONENT_MOVEMENT))
-        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(COMPONENT_MOVEMENT));
+    if(_owner->hasComponent(Enums::COMPONENT_MOVEMENT))
+        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(Enums::COMPONENT_MOVEMENT));
 
     unsigned keyPressed = InputSystem::instance()->getKeyPressed();
 
     switch(_currentAnimation)
     {
-    case ANIMATION_STAND_LEFT:
-        if(keyPressed == KEY_PRESSED_LEFT)
-            _currentAnimation = ANIMATION_WALK_LEFT;
+    case Enums::ANIMATION_STAND_LEFT:
+        if(movComp->_direction == Enums::DIRECTION_LEFT)
+            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
 
-        if(keyPressed == KEY_PRESSED_RIGHT)
-            _currentAnimation = ANIMATION_WALK_RIGHT;
+        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
+            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
 
-        if(keyPressed == KEY_PRESSED_UP || keyPressed == KEY_PRESSED_SPACE)
-            _currentAnimation = ANIMATION_JUMP_LEFT;
-
-        break;
-
-    case ANIMATION_STAND_RIGHT:
-        if(keyPressed == KEY_PRESSED_LEFT)
-            _currentAnimation = ANIMATION_WALK_LEFT;
-
-        if(keyPressed == KEY_PRESSED_RIGHT)
-            _currentAnimation = ANIMATION_WALK_RIGHT;
-
-        if(keyPressed == KEY_PRESSED_UP || keyPressed == KEY_PRESSED_SPACE)
-            _currentAnimation = ANIMATION_JUMP_RIGHT;
+        else if(movComp->_direction == Enums::DIRECTION_UP)
+            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
 
         break;
 
-    case ANIMATION_WALK_LEFT:
-        if(keyPressed == KEY_RELEASED_LEFT)
-            _currentAnimation = ANIMATION_STAND_LEFT;
+    case Enums::ANIMATION_STAND_RIGHT:
+        if(movComp->_direction == Enums::DIRECTION_LEFT)
+            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
 
-        if(keyPressed == KEY_PRESSED_RIGHT)
-            _currentAnimation = ANIMATION_WALK_RIGHT;
+        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
+            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
 
-        if(keyPressed == KEY_PRESSED_UP || keyPressed == KEY_PRESSED_SPACE)
-            _currentAnimation = ANIMATION_JUMP_LEFT;
+        else if(movComp->_direction == Enums::DIRECTION_UP)
+            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
 
         break;
 
-    case ANIMATION_WALK_RIGHT:
-        if(keyPressed == KEY_RELEASED_RIGHT)
-            _currentAnimation = ANIMATION_STAND_RIGHT;
+    case Enums::ANIMATION_WALK_LEFT:
+        if(movComp->_direction == Enums::DIRECTION_NONE)
+            _currentAnimation = Enums::ANIMATION_STAND_LEFT;
+
+        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
+            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
+
+        else if(movComp->_direction == Enums::DIRECTION_UP)
+            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
+
+        break;
+
+    case Enums::ANIMATION_WALK_RIGHT:
+        if(movComp->_direction == Enums::DIRECTION_NONE)
+            _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
         
-        if(keyPressed == KEY_PRESSED_LEFT)
-            _currentAnimation = ANIMATION_WALK_LEFT;
+        else if(movComp->_direction == Enums::DIRECTION_LEFT)
+            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
         
-        if(keyPressed == KEY_PRESSED_UP || keyPressed == KEY_PRESSED_SPACE)
-            _currentAnimation = ANIMATION_JUMP_RIGHT;
+        else if(movComp->_direction == Enums::DIRECTION_UP)
+            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
 
         break;
 
-    case ANIMATION_JUMP_LEFT:
-        if(keyPressed == KEY_PRESSED_RIGHT)
-            _currentAnimation = ANIMATION_JUMP_RIGHT;
+    case Enums::ANIMATION_JUMP_LEFT:
+        if(movComp->_direction == Enums::DIRECTION_RIGHT)
+            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
 
-        if(movComp->_isOnTheGround)
+        else if(movComp->_isOnTheGround)
         {
-            if(_currentAnimation == ANIMATION_JUMP_LEFT)
-                _currentAnimation = ANIMATION_STAND_LEFT;
+            if(_currentAnimation == Enums::ANIMATION_JUMP_LEFT)
+                _currentAnimation = Enums::ANIMATION_STAND_LEFT;
 
-            if(_currentAnimation == ANIMATION_JUMP_RIGHT)
-                _currentAnimation = ANIMATION_STAND_RIGHT;
+            else if(_currentAnimation == Enums::ANIMATION_JUMP_RIGHT)
+                _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
         }
 
         break;
 
-    case ANIMATION_JUMP_RIGHT:
-        if(keyPressed == KEY_PRESSED_LEFT)
-            _currentAnimation = ANIMATION_JUMP_LEFT;
+    case Enums::ANIMATION_JUMP_RIGHT:
+        if(movComp->_direction == Enums::DIRECTION_LEFT)
+            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
 
-        if(movComp->_isOnTheGround)
+        else if(movComp->_isOnTheGround)
         {
-            if(_currentAnimation == ANIMATION_JUMP_LEFT)
-                _currentAnimation = ANIMATION_STAND_LEFT;
+            if(_currentAnimation == Enums::ANIMATION_JUMP_LEFT)
+                _currentAnimation = Enums::ANIMATION_STAND_LEFT;
         
-            if(_currentAnimation == ANIMATION_JUMP_RIGHT)
-                _currentAnimation = ANIMATION_STAND_RIGHT;
+            else if(_currentAnimation == Enums::ANIMATION_JUMP_RIGHT)
+                _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
         }
 
         break;

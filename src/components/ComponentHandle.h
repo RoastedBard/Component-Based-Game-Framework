@@ -4,7 +4,7 @@
 struct ComponentHandle
 {
     unsigned arrayIndex; // Index of component in global array of components
-    unsigned type; // TYpe of Component (e.g. COMPONENT_TRANSFORM, COMPONENT_TEXTURE)
+    unsigned type; // TYpe of Component (e.g. Enums::COMPONENT_TRANSFORM, Enums::COMPONENT_TEXTURE)
 };
 
 #endif

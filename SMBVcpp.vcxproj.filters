@@ -58,6 +58,15 @@
     <ClCompile Include="src\components\SpriteComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\components\GameObjectFabric.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\ScriptSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\ScriptComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\AnimationComponent.h">
@@ -109,6 +118,15 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="src\components\SpriteComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\GameObjectFabric.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\ScriptSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ScriptComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

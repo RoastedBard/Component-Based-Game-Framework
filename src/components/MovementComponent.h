@@ -22,7 +22,7 @@ public:
     bool     _isJumping;
     bool  _isOnTheGround;
 
-    bool _isMovingHorizontal;
+    unsigned _direction;
 };
 
 #endif

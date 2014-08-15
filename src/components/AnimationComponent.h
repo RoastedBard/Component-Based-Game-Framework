@@ -44,7 +44,7 @@ private:
 
 private:
     int _textureId;             // Id of the sprite sheet where the animation is stored (sprite sheets stored somwhere else and are accessible by ID)
-    int _currentAnimation;      // Current animation of the entity which has this animation component (e.g. ANIMATION_STAND, ANIMATION_RUNNING)
+    int _currentAnimation;      // Current animation of the entity which has this animation component (e.g. Enums::ANIMATION_STAND, Enums::ANIMATION_RUNNING)
 
     map<int, AnimationInfo> _animations; // All animations of owner entity
 };

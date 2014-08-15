@@ -21,7 +21,7 @@ public:
     bool isUpdateable() const;
 
 protected:
-    unsigned _id; // Predefined enum value. for example: COMPONENT_TRANSFORM, COMPONENT_PLATFORMER_CONTROLLER, etc.
+    unsigned _id; // Predefined enum value. for example: Enums::COMPONENT_TRANSFORM, Enums::COMPONENT_PLATFORMER_CONTROLLER, etc.
     unique_ptr<GameObject> _owner; // GameObject that owns this component
     bool _isUpdateable; //Does this component needs to be updated constantly?
 };
