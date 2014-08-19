@@ -31,9 +31,11 @@ function addScript(script, gameObject, owner)
 	end
 
 	print("adding script "..script.." for: "..gameObject)
+
 	GameObjectScriptTables[gameObject][j] = _G[script]
+
 	addOwnerGameObject(gameObject, j, owner)
-	--table.insert(GameObjectScriptTables[gameObject][script], _G[script])
+
 end
 
 --Add owner game object
@@ -57,10 +59,7 @@ function startScripts()
 		print("GO script set N-",i)
 
 		for j = 1, #GameObjectScriptTables[i] do
-			--if type(GameObjectScriptTables[i][j]) == "table" then
-
 				GameObjectScriptTables[i][j]:start()
-			--end
 		end
 
 	end
@@ -71,23 +70,15 @@ end
 function updateScripts(dt)
 
 	for i = 1, #GameObjectScriptTables do
-
-		--print("GO script set N-",i)
-
 		for j = 1, #GameObjectScriptTables[i] do
-			--if type(GameObjectScriptTables[i][j]) == "table" then
 				GameObjectScriptTables[i][j]:update(dt)
-			--end
 		end
-
 	end
 
 end
 
 --Run 'start()' for scripts in 'gameObject' set
 function startScriptsGameObject(gameObject)
-
-	print("GO script set N-",gameObject)
 
 	for j = 1, #GameObjectScriptTables[gameObject] do
 		if type(GameObjectScriptTables[gameObject][j]) == "table" then
@@ -98,13 +89,11 @@ function startScriptsGameObject(gameObject)
 end
 
 --Run 'update()' for scripts in 'gameObject' set
-function updateScriptsGameObject(gameObject)
-
-	print("GO script set N-",gameObject)
+function updateScriptsGameObject(gameObject, dt)
 
 	for j = 1, #GameObjectScriptTables[gameObject] do
 		if type(GameObjectScriptTables[gameObject][j]) == "table" then
-			GameObjectScriptTables[gameObject][j]:update()
+			GameObjectScriptTables[gameObject][j]:update(dt)
 		end
 	end
 

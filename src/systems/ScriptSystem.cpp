@@ -1,6 +1,7 @@
 #include "ScriptSystem.h"
 #include "ScriptComponent.h"
 #include "MovementComponent.h"
+#include "AnimationComponent.h"
 #include "Enums.h"
 
 #include <luabind/operator.hpp>
@@ -8,6 +9,7 @@
 shared_ptr<ScriptSystem> ScriptSystem::_instance = nullptr;
 
 ScriptSystem::ScriptSystem(void)
+    :L(luaL_newstate(), lua_close)
 {
 }
 
@@ -28,7 +30,7 @@ shared_ptr<ScriptSystem> ScriptSystem::instance()
 
 void ScriptSystem::_registerClasses()
 {
-    module(L)
+    module(L.get())
         [
             class_<IComponent>("IComponent")
                 .def("getId", &IComponent::getId)
@@ -67,7 +69,13 @@ void ScriptSystem::_registerClasses()
                 .def("getTranformComponent", &GameObject::getTranformComponent)
                 .def("hasComponent", &GameObject::hasComponent)
                 .def("setIndexInGameObjectArray", &GameObject::setIndexInGameObjectArray)
-                .def("getComponentMovement",&GameObject::getComponentLua<MovementComponent>),
+                .def("getComponentMovement",&GameObject::getComponentLua<MovementComponent>)
+                .def("getComponentAnimation",&GameObject::getComponentLua<AnimationComponent>),
+
+            class_<AnimationComponent>("AnimationComponent")
+                .def("getCurrentAnimation", &AnimationComponent::getCurrentAnimationEnum)
+                .def("setCurrentAnimation", &AnimationComponent::setCurrentAnimation),
+                
 
             class_<Enums>("Enums")
             .enum_("Types")
@@ -112,18 +120,17 @@ void ScriptSystem::_registerClasses()
 
 void ScriptSystem::init()
 {
-    L = luaL_newstate();
-    luaL_openlibs(L);
-    open(L);
+    luaL_openlibs(L.get());
+    open(L.get());
 
     _registerClasses();
 
-    luaL_dofile(ScriptSystem::instance()->getLuaState(), "media/scripts/ScriptManager.lua");
+    luaL_dofile(ScriptSystem::instance()->getLuaState().get(), "media/scripts/ScriptManager.lua");
 }
 
 void ScriptSystem::cleanup()
 {
-    lua_close(L);
+
 }
 
 void ScriptSystem::addComponent(GameObject *ownerGameObject, unsigned componentType)
@@ -146,36 +153,37 @@ unsigned ScriptSystem::getSizeOfComponentArray(unsigned type) const
 
 void ScriptSystem::update(float deltaTime)
 {
-    //luaL_dofile(L, "media/scripts/EnemyPatrollingScript.lua");
-    updateScripts(deltaTime);
+    for(unsigned i = 0; i < _scripts.size(); ++i)
+        _scripts[i]->updateScriptsGameObject(deltaTime);
+   // updateScripts(deltaTime);
 }
 
 void ScriptSystem::addGameObjectScriptSet(GameObject *gameObject)
 {
-    lua_getglobal(L, "addGameObjectScriptSet");
+    lua_getglobal(L.get(), "addGameObjectScriptSet");
 
-    lua_pushnumber(L, gameObject->getIndexInGameObjectArray());
+    lua_pushnumber(L.get(), gameObject->getIndexInGameObjectArray());
 
-    lua_call(L, 1, 0); 
+    lua_call(L.get(), 1, 0); 
 }
 
 void ScriptSystem::startScripts()
 {
-    lua_getglobal(L, "startScripts");
+    lua_getglobal(L.get(), "startScripts");
 
-    lua_call(L, 0, 0);
+    lua_call(L.get(), 0, 0);
 }
 
 void ScriptSystem::updateScripts(float dt)
 {
-    lua_getglobal(L, "updateScripts");
+    lua_getglobal(L.get(), "updateScripts");
 
-    lua_pushnumber(L, dt);
+    lua_pushnumber(L.get(), dt);
 
-    lua_call(L, 1, 0);
+    lua_call(L.get(), 1, 0);
 }
 
-lua_State* ScriptSystem::getLuaState()
+shared_ptr<lua_State> ScriptSystem::getLuaState()
 {
     return L;
 }

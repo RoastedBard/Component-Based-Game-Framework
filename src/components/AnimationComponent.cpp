@@ -14,6 +14,8 @@ AnimationComponent::AnimationComponent(void)
     _currentAnimation = 0;
     _isUpdateable = true;
     _id = Enums::COMPONENT_ANIMATION;
+
+    //_script
 }
 
 
@@ -83,104 +85,8 @@ void AnimationComponent::addAnimation(int animationId, int startframeX, int star
     _currentAnimation = animationId;
 }
 
-void AnimationComponent::_updateAnimation()
-{   
-    if(_animations.size() <= 1)
-        return;
-    
-    shared_ptr<MovementComponent> movComp;
-
-    if(_owner->hasComponent(Enums::COMPONENT_MOVEMENT))
-        movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(Enums::COMPONENT_MOVEMENT));
-
-    unsigned keyPressed = InputSystem::instance()->getKeyPressed();
-
-    switch(_currentAnimation)
-    {
-    case Enums::ANIMATION_STAND_LEFT:
-        if(movComp->_direction == Enums::DIRECTION_LEFT)
-            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
-
-        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
-            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
-
-        else if(movComp->_direction == Enums::DIRECTION_UP)
-            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
-
-        break;
-
-    case Enums::ANIMATION_STAND_RIGHT:
-        if(movComp->_direction == Enums::DIRECTION_LEFT)
-            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
-
-        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
-            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
-
-        else if(movComp->_direction == Enums::DIRECTION_UP)
-            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
-
-        break;
-
-    case Enums::ANIMATION_WALK_LEFT:
-        if(movComp->_direction == Enums::DIRECTION_NONE)
-            _currentAnimation = Enums::ANIMATION_STAND_LEFT;
-
-        else if(movComp->_direction == Enums::DIRECTION_RIGHT)
-            _currentAnimation = Enums::ANIMATION_WALK_RIGHT;
-
-        else if(movComp->_direction == Enums::DIRECTION_UP)
-            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
-
-        break;
-
-    case Enums::ANIMATION_WALK_RIGHT:
-        if(movComp->_direction == Enums::DIRECTION_NONE)
-            _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
-        
-        else if(movComp->_direction == Enums::DIRECTION_LEFT)
-            _currentAnimation = Enums::ANIMATION_WALK_LEFT;
-        
-        else if(movComp->_direction == Enums::DIRECTION_UP)
-            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
-
-        break;
-
-    case Enums::ANIMATION_JUMP_LEFT:
-        if(movComp->_direction == Enums::DIRECTION_RIGHT)
-            _currentAnimation = Enums::ANIMATION_JUMP_RIGHT;
-
-        else if(movComp->_isOnTheGround)
-        {
-            if(_currentAnimation == Enums::ANIMATION_JUMP_LEFT)
-                _currentAnimation = Enums::ANIMATION_STAND_LEFT;
-
-            else if(_currentAnimation == Enums::ANIMATION_JUMP_RIGHT)
-                _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
-        }
-
-        break;
-
-    case Enums::ANIMATION_JUMP_RIGHT:
-        if(movComp->_direction == Enums::DIRECTION_LEFT)
-            _currentAnimation = Enums::ANIMATION_JUMP_LEFT;
-
-        else if(movComp->_isOnTheGround)
-        {
-            if(_currentAnimation == Enums::ANIMATION_JUMP_LEFT)
-                _currentAnimation = Enums::ANIMATION_STAND_LEFT;
-        
-            else if(_currentAnimation == Enums::ANIMATION_JUMP_RIGHT)
-                _currentAnimation = Enums::ANIMATION_STAND_RIGHT;
-        }
-
-        break;
-    }
-}
-
 void AnimationComponent::update(float time)
 {
-    _updateAnimation();
-
     if(_animations.size() != 0)
     {
         if(_animations[_currentAnimation].framesCount > 1)

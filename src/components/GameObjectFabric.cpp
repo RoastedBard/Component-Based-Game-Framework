@@ -38,6 +38,10 @@ void GameObjectFabric::_addSprite(const luabind::object& it, const shared_ptr<Ga
 
 void GameObjectFabric::_addAnimation(const luabind::object& it, const shared_ptr<GameObject>& gObj)
 {
+    //string script = object_cast<string>(it["animationScript"]);
+
+    //static_pointer_cast<AnimationComponent>(gObj->getComponent(Enums::COMPONENT_ANIMATION))->setScript(script);
+
     for(luabind::iterator z(it["animations"]), end; z != end; ++z)
     {
         object zz = object_cast<object>(*z);
@@ -79,7 +83,7 @@ void GameObjectFabric::_addScripts(const luabind::object& it, const shared_ptr<G
     {
         string fullPath = object_cast<string>(*i);
 
-        luaL_dofile(ScriptSystem::instance()->getLuaState(), fullPath.c_str());
+        luaL_dofile(ScriptSystem::instance()->getLuaState().get(), fullPath.c_str());
 
         string name;
 
@@ -96,14 +100,14 @@ void GameObjectFabric::_addScripts(const luabind::object& it, const shared_ptr<G
 
 void GameObjectFabric::loadGameObjects(string filename)
 {
-    luaL_dofile(ScriptSystem::instance()->getLuaState(), filename.c_str());
+    luaL_dofile(ScriptSystem::instance()->getLuaState().get(), filename.c_str());
 
     unsigned index = 1;
 
     try
     {
         // Looping through every game object:
-        for(luabind::iterator i(globals(ScriptSystem::instance()->getLuaState())["GameObjects"]), end; i != end; ++i)
+        for(luabind::iterator i(globals(ScriptSystem::instance()->getLuaState().get())["GameObjects"]), end; i != end; ++i)
         {
             _gameObjects.push_back(make_shared<GameObject>());
             

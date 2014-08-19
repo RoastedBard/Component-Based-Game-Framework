@@ -72,7 +72,7 @@ void Game::_init()
     {
         std::cout << ">SDL init success\n";
 
-        RenderingSystem::instance()->init(800, 600);
+        RenderingSystem::instance()->init(1024, 768, SDL_WINDOW_SHOWN);
     }
     else
     {

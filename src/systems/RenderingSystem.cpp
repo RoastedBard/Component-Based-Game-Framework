@@ -73,16 +73,14 @@ unsigned RenderingSystem::getSizeOfComponentArray(unsigned type) const
 
 bool RenderingSystem::loadTexture(std::string filename, int id, SDL_Renderer *renderer)
 {
-    SDL_Surface *tempSurface = IMG_Load(filename.c_str());
+    shared_ptr<SDL_Surface> tempSurface(IMG_Load(filename.c_str()), SDL_FreeSurface);
 
-    if(tempSurface == 0)
+    if(tempSurface == nullptr)
     {
         return false;
     }
 
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-
-    SDL_FreeSurface(tempSurface);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface.get());
 
     if(texture != 0)
     {
@@ -98,21 +96,21 @@ void RenderingSystem::_drawTexture(const shared_ptr<SpriteComponent>& spriteComp
     SDL_Rect srcRect;  // Rectangle area on texture to be drawn
     SDL_Rect destRect; // Rectangle area on screen to draw texture to
 
-    SpriteComponent::SpriteInfo info = spriteComponent->getSpriteInfo();
+    //SpriteComponent::SpriteInfo info = spriteComponent->getSpriteInfo();
 
-    srcRect.x = info.x;
-    srcRect.y = info.y;
-    srcRect.w = destRect.w = info.width;
-    srcRect.h = destRect.h = info.height;
+    srcRect.x = spriteComponent->getSpriteInfo().x;
+    srcRect.y = spriteComponent->getSpriteInfo().y;
+    srcRect.w = destRect.w = spriteComponent->getSpriteInfo().width;
+    srcRect.h = destRect.h = spriteComponent->getSpriteInfo().height;
     destRect.x = (int)spriteComponent->getOwner()->getTranformComponent()._position.x;
     destRect.y = (int)spriteComponent->getOwner()->getTranformComponent()._position.y;
     
     // Passing 0 into the source rectangle parameter will make the renderer use the entire texture. 
     //Likewise, passing null to the destination rectangle parameter will use the entire renderer for display.
-    if(info.horizontalFlip)
+    if(spriteComponent->getSpriteInfo().horizontalFlip)
         SDL_RenderCopyEx(_renderer.get(), _textureMap[spriteComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
 
-    else if(info.verticalFlip)
+    else if(spriteComponent->getSpriteInfo().verticalFlip)
         SDL_RenderCopyEx(_renderer.get(), _textureMap[spriteComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_VERTICAL);
 
     else
@@ -124,30 +122,30 @@ void RenderingSystem::_drawFrame(const shared_ptr<AnimationComponent>& animCompo
     SDL_Rect srcRect;
     SDL_Rect destRect;
 
-    AnimationComponent::AnimationInfo info = animComponent->getCurrentAnimation();
+    //AnimationComponent::AnimationInfo info = animComponent->getCurrentAnimation();
 
-    srcRect.x = info.x;
-    srcRect.y = info.y;
+    srcRect.x = animComponent->getCurrentAnimation().x;
+    srcRect.y = animComponent->getCurrentAnimation().y;
 
-    if(info.horizontal == true)
+    if(animComponent->getCurrentAnimation().horizontal == true)
     {
-        srcRect.x += info.currentFrame * info.width;
+        srcRect.x += animComponent->getCurrentAnimation().currentFrame * animComponent->getCurrentAnimation().width;
     }
-    else if(info.horizontal == false)
+    else if(animComponent->getCurrentAnimation().horizontal == false)
     {
-        srcRect.y += info.currentFrame * info.height;
+        srcRect.y += animComponent->getCurrentAnimation().currentFrame * animComponent->getCurrentAnimation().height;
     }
 
-    srcRect.w = destRect.w = info.width;
-    srcRect.h = destRect.h = info.height;
+    srcRect.w = destRect.w = animComponent->getCurrentAnimation().width;
+    srcRect.h = destRect.h = animComponent->getCurrentAnimation().height;
 
     destRect.x = (int)animComponent->getOwner()->getTranformComponent()._position.x;
     destRect.y = (int)animComponent->getOwner()->getTranformComponent()._position.y;
 
-    if(info.horizontalFlip)
+    if(animComponent->getCurrentAnimation().horizontalFlip)
         SDL_RenderCopyEx(_renderer.get(), _textureMap[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
     
-    else if(info.verticalFlip)
+    else if(animComponent->getCurrentAnimation().verticalFlip)
         SDL_RenderCopyEx(_renderer.get(), _textureMap[animComponent->getTextureId()], &srcRect, &destRect, 0, 0, SDL_FLIP_VERTICAL);
     
     else
@@ -175,9 +173,9 @@ void RenderingSystem::render()
     SDL_RenderPresent(_renderer.get());
 }
 
-void RenderingSystem::init(int windowWidth, int windowHigh)
+void RenderingSystem::init(int windowWidth, int windowHigh, Uint32 flags)
 {
-    _window.reset(SDL_CreateWindow("SMBV", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHigh, SDL_WINDOW_SHOWN));
+    _window.reset(SDL_CreateWindow("SMBV", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHigh, flags));
 
     if(_window != nullptr)
     {
@@ -187,7 +185,7 @@ void RenderingSystem::init(int windowWidth, int windowHigh)
         if(_renderer != nullptr)
         {
             std::cout << ">renderer creation success\n";
-            SDL_SetRenderDrawColor(_renderer.get(), 3, 144, 255, 255);
+            SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 255);
         }
         else
         {

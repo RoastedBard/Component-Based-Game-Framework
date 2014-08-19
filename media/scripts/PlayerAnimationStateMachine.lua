@@ -1,4 +1,24 @@
-function update(direction, currentAnimation, isOnTheGround)
+PlayerAnimationStateMachine =
+{
+
+}
+
+function PlayerAnimationStateMachine:start()
+
+end
+
+function PlayerAnimationStateMachine:update(dt)
+
+	animComp = self.owner:getComponentAnimation(Enums.COMPONENT_ANIMATION)
+	movComp = self.owner:getComponentMovement(Enums.COMPONENT_MOVEMENT)
+
+	currentAnimation = animComp:getCurrentAnimation()
+	direction = movComp.direction
+	isOnTheGround = movComp.isOnTheGround
+
+--~ 	print(currentAnimation)
+--~ 	print(direction)
+--~ 	print(isOnTheGround)
 
 	if currentAnimation == Enums.ANIMATION_STAND_LEFT then
 
@@ -80,4 +100,6 @@ function update(direction, currentAnimation, isOnTheGround)
 
 		end
 	end
+
+	animComp:setCurrentAnimation(currentAnimation)
 end

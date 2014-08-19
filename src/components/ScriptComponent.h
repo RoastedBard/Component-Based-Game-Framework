@@ -11,6 +11,7 @@ public:
 public:
     void addScript(const char* script, GameObject* gameObject);
     void startScriptsGameObject();
-    void updateScriptsGameObject();
-    void addOwnerGameObject(char* script, GameObject* gameObject);
+    void updateScriptsGameObject(float deltaTime);
+    void addOwner(char* script, GameObject* gameObject);
+    /*void addOwner(char* script, IComponent* component, string nameInGameObjectScriptTable);*/ // For component scripts
 };

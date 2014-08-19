@@ -1,5 +1,7 @@
 EnemyPhysics =
 {
+	transform = 0,
+	movement  = 0
 }
 
 function EnemyPhysics:update(dt)
@@ -11,6 +13,7 @@ end
 function EnemyPhysics:start()
 
 	print("start")
+
 
 end
 

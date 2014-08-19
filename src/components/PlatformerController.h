@@ -2,6 +2,7 @@
 #define _PLATFORMERCONTROLLER_H_
 
 #include "icomponent.h"
+#include "MovementComponent.h"
 
 class PlatformerController :
     public IComponent
@@ -12,6 +13,9 @@ public:
 
 public:
     virtual void update(float deltaTime);
+
+private:
+    shared_ptr<MovementComponent> _movComp;
 };
 
 #endif

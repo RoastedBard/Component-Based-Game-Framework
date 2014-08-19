@@ -10,7 +10,8 @@ GameObjects =
 			Enums.COMPONENT_ANIMATION,
 		    Enums.COMPONENT_PLATFORMER_CONTROLLER,
 			Enums.COMPONENT_MOVEMENT,
-	        Enums.COMPONENT_PLATFORMER_PHYSICS
+	        Enums.COMPONENT_PLATFORMER_PHYSICS,
+			Enums.COMPONENT_SCRIPT
 		},
 
 		movement =
@@ -31,8 +32,12 @@ GameObjects =
 			textureId = Enums.TEXTURE_PLAYER
 		},
 
+		--animationScript = "media/scripts/PlayerAnimationStateMachine.lua", -- Ugly!!
+
 		animations =
 		{
+			--int animationId, int startframeX, int startframeY, int frameWidth, int frameHeight, int framesCount,
+			--int animationSpeed, bool horizontal, bool horizontalFlip, bool verticalFlip
 			{
 				Enums.ANIMATION_WALK_LEFT,
 				0, 0, 17, 32, 3, 70, 1, 1, 0
@@ -57,6 +62,11 @@ GameObjects =
 				Enums.ANIMATION_JUMP_RIGHT,
 				68, 0, 17, 32, 1, 0, 1, 1, 0
 			}
+		},
+
+		scripts =
+		{
+			"media/scripts/PlayerAnimationStateMachine.lua"
 		}
 	},
 
@@ -77,9 +87,9 @@ GameObjects =
 		{
 			velocityX = 0,
 			velocityY = 0,
-			accelerationX = 0.01,
+			accelerationX = 0.05,
 			accelerationy = 4.75,
-			maxVelocityX = 0.3,
+			maxVelocityX = 0.1,
 			maxVelocityY = 0,
 			direction = Enums.DIRECTION_NONE,
 			isJumping = 0,
@@ -93,14 +103,21 @@ GameObjects =
 
 		animations =
 		{
+		    --int animationId, int startframeX, int startframeY, int frameWidth, int frameHeight, int framesCount,
+			--int animationSpeed, bool horizontal, bool horizontalFlip, bool verticalFlip
+			{
+				Enums.ANIMATION_WALK_LEFT,
+				0, 32, 17, 32, 3, 70, 1, 1, 0
+			},
 			{
 				Enums.ANIMATION_WALK_RIGHT,
-				0, 0, 17, 32, 3, 70, 1, 0, 0
+				0, 32, 17, 32, 3, 70, 1, 0, 0
 			}
 		},
 
 		scripts =
 		{
+			"media/scripts/EnemyAnimationStateMachine.lua",
 			"media/scripts/EnemyPatrollingScript.lua",
 			"media/scripts/EnemyPhysics.lua"
 		}
@@ -123,9 +140,9 @@ GameObjects =
 		{
 			velocityX = 0,
 			velocityY = 0,
-			accelerationX = 0.02,
+			accelerationX = 0.03,
 			accelerationy = 4.75,
-			maxVelocityX = 0.3,
+			maxVelocityX = 0.2,
 			maxVelocityY = 0,
 			direction = Enums.DIRECTION_NONE,
 			isJumping = 0,
@@ -140,13 +157,18 @@ GameObjects =
 		animations =
 		{
 			{
+				Enums.ANIMATION_WALK_LEFT,
+				0, 32, 17, 32, 3, 70, 1, 1, 0
+			},
+			{
 				Enums.ANIMATION_WALK_RIGHT,
-				0, 0, 17, 32, 3, 70, 1, 0, 0
+				0, 32, 17, 32, 3, 70, 1, 0, 0
 			}
 		},
 
 		scripts =
 		{
+			"media/scripts/EnemyAnimationStateMachine.lua",
 			"media/scripts/EnemyPatrollingScript.lua",
 			"media/scripts/EnemyPhysics.lua"
 		}
@@ -169,7 +191,7 @@ GameObjects =
 		{
 			velocityX = 0,
 			velocityY = 0,
-			accelerationX = 0.04,
+			accelerationX = 0.076,
 			accelerationy = 4.75,
 			maxVelocityX = 0.3,
 			maxVelocityY = 0,
@@ -186,13 +208,18 @@ GameObjects =
 		animations =
 		{
 			{
+				Enums.ANIMATION_WALK_LEFT,
+				0, 32, 17, 32, 3, 70, 1, 1, 0
+			},
+			{
 				Enums.ANIMATION_WALK_RIGHT,
-				0, 0, 17, 32, 3, 70, 1, 0, 0
+				0, 32, 17, 32, 3, 70, 1, 0, 0
 			}
 		},
 
 		scripts =
 		{
+			"media/scripts/EnemyAnimationStateMachine.lua",
 			"media/scripts/EnemyPatrollingScript.lua",
 			"media/scripts/EnemyPhysics.lua"
 		}
@@ -215,9 +242,9 @@ GameObjects =
 		{
 			velocityX = 0,
 			velocityY = 0,
-			accelerationX = 0.01,
+			accelerationX = 0.027,
 			accelerationy = 4.75,
-			maxVelocityX = 0.3,
+			maxVelocityX = 0.27,
 			maxVelocityY = 0,
 			direction = Enums.DIRECTION_NONE,
 			isJumping = 0,
@@ -232,13 +259,18 @@ GameObjects =
 		animations =
 		{
 			{
+				Enums.ANIMATION_WALK_LEFT,
+				0, 32, 17, 32, 3, 70, 1, 1, 0
+			},
+			{
 				Enums.ANIMATION_WALK_RIGHT,
-				0, 0, 17, 32, 3, 70, 1, 0, 0
+				0, 32, 17, 32, 3, 70, 1, 0, 0
 			}
 		},
 
 		scripts =
 		{
+			"media/scripts/EnemyAnimationStateMachine.lua",
 			"media/scripts/EnemyPatrollingScript.lua",
 			"media/scripts/EnemyPhysics.lua"
 		}
@@ -261,9 +293,9 @@ GameObjects =
 		{
 			velocityX = 0,
 			velocityY = 0,
-			accelerationX = 0.01,
+			accelerationX = 0.03,
 			accelerationy = 4.75,
-			maxVelocityX = 0.3,
+			maxVelocityX = 0.167,
 			maxVelocityY = 0,
 			direction = Enums.DIRECTION_NONE,
 			isJumping = 0,
@@ -278,20 +310,26 @@ GameObjects =
 		animations =
 		{
 			{
+				Enums.ANIMATION_WALK_LEFT,
+				0, 32, 17, 32, 3, 70, 1, 1, 0
+			},
+			{
 				Enums.ANIMATION_WALK_RIGHT,
-				0, 0, 17, 32, 3, 70, 1, 0, 0
+				0, 32, 17, 32, 3, 70, 1, 0, 0
 			}
 		},
 
 		scripts =
 		{
+			"media/scripts/EnemyAnimationStateMachine.lua",
 			"media/scripts/EnemyPatrollingScript.lua",
 			"media/scripts/EnemyPhysics.lua"
 		}
 	},
+
 	--platform
 	{
-		posX = 10,
+		posX = 300,
 		posY = 100,
 
 		components =
@@ -332,7 +370,7 @@ GameObjects =
 
 	--platform 2
 	{
-		posX = 10,
+		posX = 300,
 		posY = 200,
 
 		components =
@@ -373,7 +411,7 @@ GameObjects =
 
 	--platform 3
 	{
-		posX = 10,
+		posX = 300,
 		posY = 300,
 
 		components =

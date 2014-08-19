@@ -46,6 +46,10 @@ T* GameObject::getComponentLua(int type)
         case Enums::COMPONENT_MOVEMENT:
             return static_cast<T*>(this->getComponent(Enums::COMPONENT_MOVEMENT).get());
         break;
+
+        case Enums::COMPONENT_ANIMATION:
+            return static_cast<T*>(this->getComponent(Enums::COMPONENT_ANIMATION).get());
+        break;
     }
 }
 

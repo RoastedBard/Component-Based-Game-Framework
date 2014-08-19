@@ -25,7 +25,7 @@ public:
     virtual unsigned getSizeOfComponentArray(unsigned type) const;
 
 public:
-    void init(int windowWidth, int windowHigh);
+    void init(int windowWidth, int windowHigh, Uint32 flags);
     void render();
     void update(float deltaTime); // maybe not right to place this method in this system?
     bool loadTexture(std::string filename, int id, SDL_Renderer *renderer);

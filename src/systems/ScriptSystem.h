@@ -51,8 +51,8 @@ private:
     void _registerClasses();
 
 public:
-    lua_State* getLuaState();
-    lua_State *L;
+    shared_ptr<lua_State> getLuaState();
+    shared_ptr<lua_State> L;
 
 private:
     static shared_ptr<ScriptSystem> _instance;
