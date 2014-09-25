@@ -30,8 +30,8 @@ public:
 
 public:
     void addAnimation(int animationId, int startframeX, int startframeY, int frameWidth, int frameHeight, int framesCount, int animationSpeed, bool horizontal, bool horizontalFlip, bool verticalFlip);
-    void setTextureId(int textureId);
-    int  getTextureId() const;
+    void setTextureId(string textureId);
+    string  getTextureId() const;
     map<int, AnimationComponent::AnimationInfo> getAnimations() const;
     AnimationComponent::AnimationInfo getAnimation(int animationId);
     int getCurrentAnimationEnum() const;
@@ -40,7 +40,7 @@ public:
     virtual void update(float time);
 
 private:
-    int _textureId;             // Id of the sprite sheet where the animation is stored (sprite sheets stored somwhere else and are accessible by ID)
+    string _textureId;             // Id of the sprite sheet where the animation is stored (sprite sheets stored somwhere else and are accessible by ID)
     int _currentAnimation;      // Current animation of the entity which has this animation component (e.g. Enums::ANIMATION_STAND, Enums::ANIMATION_RUNNING)
 
     map<int, AnimationInfo> _animations; // All animations of owner entity

@@ -35,7 +35,7 @@ private:
     void _addTexture(const luabind::object& it, const shared_ptr<GameObject>& gObj, unsigned component);
     void _fillMovementData(const luabind::object& it, const shared_ptr<GameObject>& gObj);
     void _addScripts(const luabind::object& it, const shared_ptr<GameObject>& gObj);
-
+    void _addCollider(const luabind::object& it, const shared_ptr<GameObject>& gObj);
 private:
     vector<shared_ptr<GameObject>> _gameObjects;
 

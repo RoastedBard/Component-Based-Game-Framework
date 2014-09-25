@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCRIPTSYSTEM_H_
+#define _SCRIPTSYSTEM_H_
 
 #include <memory>
 #include <vector>
@@ -63,3 +64,4 @@ private:
     
 };
 
+#endif

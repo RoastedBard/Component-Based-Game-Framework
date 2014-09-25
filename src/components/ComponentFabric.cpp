@@ -62,6 +62,9 @@ ComponentHandle ComponentFabric::addComponent(GameObject *ownerGameObject, unsig
 
     case Enums::COMPONENT_SCRIPT:
         return _addComponent(type, ownerGameObject, ScriptSystem::instance());
+    
+    case Enums::COMPONENT_COLLIDER:
+        return _addComponent(type, ownerGameObject, PhysicsSystem::instance());
     }
 }
 
@@ -86,6 +89,9 @@ shared_ptr<IComponent> ComponentFabric::getComponent(ComponentHandle handle)
 
     case Enums::COMPONENT_SCRIPT:
         return ScriptSystem::instance()->getComponent(handle);
+
+    case Enums::COMPONENT_COLLIDER:
+        return PhysicsSystem::instance()->getComponent(handle);
     }
 
     return nullptr;

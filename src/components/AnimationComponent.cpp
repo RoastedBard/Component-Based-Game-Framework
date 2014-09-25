@@ -10,7 +10,7 @@
 
 AnimationComponent::AnimationComponent(void)
 {
-    _textureId = -1;
+    _textureId = "";
     _currentAnimation = 0;
     _isUpdateable = true;
     _id = Enums::COMPONENT_ANIMATION;
@@ -34,12 +34,12 @@ AnimationComponent::AnimationInfo AnimationComponent::getAnimation(int animation
     return _animations[animationId];
 }
 
-int AnimationComponent::getTextureId() const
+string AnimationComponent::getTextureId() const
 {
     return _textureId;
 }
 
-void AnimationComponent::setTextureId(int textureId)
+void AnimationComponent::setTextureId(string textureId)
 {
     _textureId = textureId;
 }
@@ -61,7 +61,7 @@ void AnimationComponent::setCurrentAnimation(int animationId)
 
 void AnimationComponent::addAnimation(int animationId, int startframeX, int startframeY, int frameWidth, int frameHeight, int framesCount, int animationSpeed, bool horizontal, bool horizontalFlip, bool verticalFlip)
 {
-    if(_textureId == -1)
+    if(_textureId == "")
     {
         std::cout<<"You must specify sprite sheet for animation.\n";
         return;

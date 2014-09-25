@@ -2,6 +2,7 @@
 #include "ScriptComponent.h"
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
+#include "ColliderComponent.h"
 #include "Enums.h"
 
 #include <luabind/operator.hpp>
@@ -70,12 +71,15 @@ void ScriptSystem::_registerClasses()
                 .def("hasComponent", &GameObject::hasComponent)
                 .def("setIndexInGameObjectArray", &GameObject::setIndexInGameObjectArray)
                 .def("getComponentMovement",&GameObject::getComponentLua<MovementComponent>)
-                .def("getComponentAnimation",&GameObject::getComponentLua<AnimationComponent>),
+                .def("getComponentAnimation",&GameObject::getComponentLua<AnimationComponent>)
+                .def("getComponentCollider",&GameObject::getComponentLua<ColliderComponent>),
 
             class_<AnimationComponent>("AnimationComponent")
                 .def("getCurrentAnimation", &AnimationComponent::getCurrentAnimationEnum)
                 .def("setCurrentAnimation", &AnimationComponent::setCurrentAnimation),
-                
+
+            class_<ColliderComponent>("ColliderComponent")
+                .def("isCollided", &ColliderComponent::getIsCollided),
 
             class_<Enums>("Enums")
             .enum_("Types")
@@ -87,6 +91,7 @@ void ScriptSystem::_registerClasses()
                 value("COMPONENT_ANIMATION", Enums::COMPONENT_ANIMATION),
                 value("COMPONENT_SPRITE", Enums::COMPONENT_SPRITE),
                 value("COMPONENT_SCRIPT", Enums::COMPONENT_SCRIPT),
+                value("COMPONENT_COLLIDER", Enums::COMPONENT_COLLIDER),
     
                 value("KEY_PRESSED_UP", Enums::KEY_PRESSED_UP),
                 value("KEY_PRESSED_DOWN", Enums::KEY_PRESSED_DOWN),
@@ -113,7 +118,11 @@ void ScriptSystem::_registerClasses()
                 value("DIRECTION_LEFT", Enums::DIRECTION_LEFT), 
                 value("DIRECTION_RIGHT", Enums::DIRECTION_RIGHT),
                 value("DIRECTION_UP", Enums::DIRECTION_UP),
-                value("DIRECTION_NONE", Enums::DIRECTION_NONE)
+                value("DIRECTION_NONE", Enums::DIRECTION_NONE),
+
+                value("BODY_STATIC", Enums::BODY_STATIC),
+                value("BODY_DYNAMIC", Enums::BODY_DYNAMIC),
+                value("BODY_KINEMATIC", Enums::BODY_KINEMATIC)
             ]
         ];
 }

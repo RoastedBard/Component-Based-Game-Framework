@@ -27,15 +27,15 @@ public:
 
 public:
     void addSprite(int frameX, int frameY, int frameWidth, int frameHeight, bool horizontalFlip, bool verticalFlip);
-    void setTextureId(int textureId);
-    int  getTextureId() const;
+    void setTextureId(string textureId);
+    string  getTextureId() const;
     SpriteComponent::SpriteInfo getSpriteInfo();
 
     virtual void update(float time){}
 
 private:
     SpriteInfo _info;
-    int _textureId;
+    string _textureId;
 };
 
 #endif

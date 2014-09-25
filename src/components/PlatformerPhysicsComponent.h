@@ -18,6 +18,7 @@ private:
     void _performGravity(float deltaTime);
     void _performMovement(float deltaTime);
     void _performJumping(float deltaTime);
+    void _reactOnCollision();
     float _lerp(float max, float current, float acceleration);
 
 private:

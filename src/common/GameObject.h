@@ -50,6 +50,10 @@ T* GameObject::getComponentLua(int type)
         case Enums::COMPONENT_ANIMATION:
             return static_cast<T*>(this->getComponent(Enums::COMPONENT_ANIMATION).get());
         break;
+
+        case Enums::COMPONENT_COLLIDER:
+            return static_cast<T*>(this->getComponent(Enums::COMPONENT_COLLIDER).get());
+        break;
     }
 }
 

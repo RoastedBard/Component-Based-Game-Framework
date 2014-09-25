@@ -52,13 +52,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\LIBS\luabind-0.9.1;D:\LIBS\Lua\5.1\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\LIBS\Box2D_v2.3.0;D:\LIBS\luabind-0.9.1;D:\LIBS\Lua\5.1\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\LIBS\luabind-0.9.1\bin\msvc-11.0\debug\link-static;D:\LIBS\Lua\5.1\lib;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;libluabindd.lib;lua5.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\LIBS\Box2D_v2.3.0\lib\Debug;D:\LIBS\luabind-0.9.1\bin\msvc-11.0\debug\link-static;D:\LIBS\Lua\5.1\lib;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;SDL2.lib;SDL2main.lib;SDL2_Image.lib;libluabindd.lib;lua5.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -70,15 +70,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\LIBS\luabind-0.9.1;D:\LIBS\Lua\5.1\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\LIBS\Box2D_v2.3.0;D:\LIBS\luabind-0.9.1;D:\LIBS\Lua\5.1\include;D:\LIBS\MyLuaAndLuabindBundle\boost\include;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems;D:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components;D:\LIBS\SDL2_image-devel-2.0.0-VC\include;D:\LIBS\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\LIBS\luabind-0.9.1\bin\msvc-11.0\release\link-static;D:\LIBS\Lua\5.1\lib;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_Image.lib;lua5.1.lib;libluabind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\LIBS\Box2D_v2.3.0\lib\Release;D:\LIBS\luabind-0.9.1\bin\msvc-11.0\release\link-static;D:\LIBS\Lua\5.1\lib;D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86;D:\LIBS\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;SDL2.lib;SDL2main.lib;SDL2_Image.lib;lua5.1.lib;libluabind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -86,6 +86,7 @@
     <ClCompile Include="src\common\GameObject.cpp" />
     <ClCompile Include="src\common\main.cpp" />
     <ClCompile Include="src\components\AnimationComponent.cpp" />
+    <ClCompile Include="src\components\ColliderComponent.cpp" />
     <ClCompile Include="src\components\ComponentFabric.cpp" />
     <ClCompile Include="src\components\GameObjectFabric.cpp" />
     <ClCompile Include="src\components\IComponent.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="src\common\GameObject.h" />
     <ClInclude Include="src\common\Vector2.h" />
     <ClInclude Include="src\components\AnimationComponent.h" />
+    <ClInclude Include="src\components\ColliderComponent.h" />
     <ClInclude Include="src\components\ComponentFabric.h" />
     <ClInclude Include="src\components\ComponentHandle.h" />
     <ClInclude Include="src\components\GameObjectFabric.h" />

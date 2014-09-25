@@ -4,6 +4,8 @@
 #include "ScriptSystem.h"
 #include "ScriptComponent.h"
 #include "SpriteComponent.h"
+#include "ColliderComponent.h"
+#include "RenderingSystem.h"
 #include "Enums.h"
 
 shared_ptr<GameObjectFabric> GameObjectFabric::_instance = nullptr;
@@ -56,7 +58,10 @@ void GameObjectFabric::_addAnimation(const luabind::object& it, const shared_ptr
 
 void GameObjectFabric::_addTexture(const luabind::object& it, const shared_ptr<GameObject>& gObj, unsigned component)
 {
-    unsigned texId = object_cast<unsigned>(it["textures"]["textureId"]);
+    string texId = object_cast<string>(it["textures"]["textureId"]);
+    string texFile = object_cast<string>(it["textures"]["texture"]);
+
+    RenderingSystem::instance()->loadTexture(texFile, texId);
 
     if(component == Enums::COMPONENT_ANIMATION)
         static_pointer_cast<AnimationComponent>(gObj->getComponent(Enums::COMPONENT_ANIMATION))->setTextureId(texId);
@@ -75,6 +80,16 @@ void GameObjectFabric::_fillMovementData(const luabind::object& it, const shared
     static_pointer_cast<MovementComponent>(gObj->getComponent(Enums::COMPONENT_MOVEMENT))->_direction = object_cast<int>(it["movement"]["direction"]);
     static_pointer_cast<MovementComponent>(gObj->getComponent(Enums::COMPONENT_MOVEMENT))->_isJumping = object_cast<int>(it["movement"]["isJumping"]);
     static_pointer_cast<MovementComponent>(gObj->getComponent(Enums::COMPONENT_MOVEMENT))->_isOnTheGround = object_cast<int>(it["movement"]["isOnTheGround"]);
+}
+
+void GameObjectFabric::_addCollider(const luabind::object& it, const shared_ptr<GameObject>& gObj)
+{
+    static_pointer_cast<ColliderComponent>(gObj->getComponent(Enums::COMPONENT_COLLIDER))->setupCollider(object_cast<int>(it["collider"]["minX"]), 
+                                                                                                         object_cast<int>(it["collider"]["minY"]), 
+                                                                                                         object_cast<int>(it["collider"]["width"]), 
+                                                                                                         object_cast<int>(it["collider"]["height"]));
+    
+    static_pointer_cast<ColliderComponent>(gObj->getComponent(Enums::COMPONENT_COLLIDER))->setupFootSensor(object_cast<int>(it["collider"]["footSensor"]));
 }
 
 void GameObjectFabric::_addScripts(const luabind::object& it, const shared_ptr<GameObject>& gObj)
@@ -165,6 +180,15 @@ void GameObjectFabric::loadGameObjects(string filename)
                     _addScripts(ii, _gameObjects.back());
 
                     ++index;
+                    break;
+
+                case Enums::COMPONENT_COLLIDER:
+                    _gameObjects.back()->addComponent(type);
+
+                    _addCollider(ii, _gameObjects.back());
+
+                    break;
+
                 default:
                     break;
                 }

@@ -57,7 +57,7 @@ shared_ptr<IComponent> RenderingSystem::getComponent(const ComponentHandle& hand
     return nullptr;
 }
 
-std::map<int, SDL_Texture*> RenderingSystem::getTextureMap()
+std::map<string, SDL_Texture*> RenderingSystem::getTextureMap()
 {
     return _textureMap;
 }
@@ -71,8 +71,11 @@ unsigned RenderingSystem::getSizeOfComponentArray(unsigned type) const
         return _spriteComponents.size();
 }
 
-bool RenderingSystem::loadTexture(std::string filename, int id, SDL_Renderer *renderer)
+bool RenderingSystem::loadTexture(std::string filename, string id)
 {
+    if(_textureMap.find(id) != _textureMap.end())
+        return false;
+
     shared_ptr<SDL_Surface> tempSurface(IMG_Load(filename.c_str()), SDL_FreeSurface);
 
     if(tempSurface == nullptr)
@@ -80,7 +83,7 @@ bool RenderingSystem::loadTexture(std::string filename, int id, SDL_Renderer *re
         return false;
     }
 
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, tempSurface.get());
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer.get(), tempSurface.get());
 
     if(texture != 0)
     {
@@ -199,8 +202,8 @@ void RenderingSystem::init(int windowWidth, int windowHigh, Uint32 flags)
         return;
     }
 
-    loadTexture("media/sprites/marioRunning.png", Enums::TEXTURE_PLAYER, _renderer.get());
-    loadTexture("media/sprites/platform.png", Enums::TEXTURE_TEST, _renderer.get());
+    //loadTexture("media/sprites/marioRunning.png", Enums::TEXTURE_PLAYER, _renderer.get());
+    //loadTexture("media/sprites/platform.png", Enums::TEXTURE_TEST, _renderer.get());
 }
 
 void RenderingSystem::cleanup()

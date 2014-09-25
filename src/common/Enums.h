@@ -13,7 +13,8 @@ class Enums
         COMPONENT_PLATFORMER_CONTROLLER,
         COMPONENT_ANIMATION,
         COMPONENT_SPRITE,
-        COMPONENT_SCRIPT
+        COMPONENT_SCRIPT,
+        COMPONENT_COLLIDER
     };
     
     enum GameObjectTypes
@@ -59,6 +60,13 @@ class Enums
         ANIMATION_WALK_RIGHT,
         ANIMATION_JUMP_LEFT,
         ANIMATION_JUMP_RIGHT
+    };
+
+    enum BodyType
+    {
+        BODY_STATIC = 0,
+        BODY_DYNAMIC,
+        BODY_KINEMATIC
     };
 };
 #endif

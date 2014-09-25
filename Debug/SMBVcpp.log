@@ -1,25 +1,56 @@
-﻿Build started 17.08.2014 20:32:38.
+﻿Build started 02.09.2014 15:48:47.
      1>Project "D:\Work\SuperMassiveBlackWhore\SMBVcpp\SMBVcpp.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SMBVcpp.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"D:\LIBS\luabind-0.9.1" /ID:\LIBS\Lua\5.1\include /ID:\LIBS\MyLuaAndLuabindBundle\boost\include /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components /I"D:\LIBS\SDL2_image-devel-2.0.0-VC\include" /I"D:\LIBS\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\common\Game.cpp src\components\AnimationComponent.cpp src\components\ComponentFabric.cpp src\components\GameObjectFabric.cpp src\components\PlatformerController.cpp src\components\ScriptComponent.cpp src\systems\RenderingSystem.cpp src\systems\ScriptSystem.cpp
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ID:\LIBS\Box2D_v2.3.0 /I"D:\LIBS\luabind-0.9.1" /ID:\LIBS\Lua\5.1\include /ID:\LIBS\MyLuaAndLuabindBundle\boost\include /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\common /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\systems /ID:\Work\SuperMassiveBlackWhore\SMBVcpp\src\components /I"D:\LIBS\SDL2_image-devel-2.0.0-VC\include" /I"D:\LIBS\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\common\Game.cpp src\common\GameObject.cpp src\common\main.cpp src\components\AnimationComponent.cpp src\components\ColliderComponent.cpp src\components\ComponentFabric.cpp src\components\GameObjectFabric.cpp src\components\IComponent.cpp src\components\MovementComponent.cpp src\components\PlatformerController.cpp src\components\PlatformerPhysicsComponent.cpp src\components\ScriptComponent.cpp src\components\SpriteComponent.cpp src\components\TransformComponent.cpp src\systems\InputSystem.cpp src\systems\PhysicsSystem.cpp src\systems\RenderingSystem.cpp src\systems\ScriptSystem.cpp
+         ScriptSystem.cpp
+         Unknown compiler version - please run the configure tests and report the results
+         RenderingSystem.cpp
+         Unknown compiler version - please run the configure tests and report the results
+         PhysicsSystem.cpp
+         InputSystem.cpp
+         TransformComponent.cpp
+         SpriteComponent.cpp
          ScriptComponent.cpp
          Unknown compiler version - please run the configure tests and report the results
+         PlatformerPhysicsComponent.cpp
          PlatformerController.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         ScriptSystem.cpp
-         RenderingSystem.cpp
+         MovementComponent.cpp
+         IComponent.cpp
          GameObjectFabric.cpp
+         Unknown compiler version - please run the configure tests and report the results
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(38): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(55): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(81): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(82): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(92): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(133): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\gameobjectfabric.cpp(134): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
          ComponentFabric.cpp
+         Unknown compiler version - please run the configure tests and report the results
+         ColliderComponent.cpp
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\collidercomponent.cpp(124): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\collidercomponent.cpp(127): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
          AnimationComponent.cpp
+         Unknown compiler version - please run the configure tests and report the results
+         main.cpp
+         GameObject.cpp
          Game.cpp
+         Unknown compiler version - please run the configure tests and report the results
+         Generating Code...
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\components\componentfabric.cpp(69): warning C4715: 'ComponentFabric::addComponent' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\physicssystem.cpp(119): warning C4715: 'PhysicsSystem::getSizeOfComponentArray' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\systems\renderingsystem.cpp(72): warning C4715: 'RenderingSystem::getSizeOfComponentArray' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\common\gameobject.h(58): warning C4715: 'GameObject::getComponentLua<AnimationComponent>' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\common\gameobject.h(58): warning C4715: 'GameObject::getComponentLua<ColliderComponent>' : not all control paths return a value
+     1>d:\work\supermassiveblackwhore\smbvcpp\src\common\gameobject.h(58): warning C4715: 'GameObject::getComponentLua<MovementComponent>' : not all control paths return a value
        Link:
-         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\LIBS\luabind-0.9.1\bin\msvc-11.0\debug\link-static" /LIBPATH:D:\LIBS\Lua\5.1\lib /LIBPATH:"D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86" /LIBPATH:"D:\LIBS\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_Image.lib libluabindd.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.lib" /MACHINE:X86 Debug\Game.obj
+         D:\PROGRAMMS\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\LIBS\Box2D_v2.3.0\lib\Debug /LIBPATH:"D:\LIBS\luabind-0.9.1\bin\msvc-11.0\debug\link-static" /LIBPATH:D:\LIBS\Lua\5.1\lib /LIBPATH:"D:\LIBS\SDL2_image-devel-2.0.0-VC\lib\x86" /LIBPATH:"D:\LIBS\SDL2-2.0.3\lib\x86" Box2D.lib SDL2.lib SDL2main.lib SDL2_Image.lib libluabindd.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Work\SuperMassiveBlackWhore\SMBVcpp\Debug\SMBVcpp.lib" /MACHINE:X86 Debug\Game.obj
          Debug\GameObject.obj
          Debug\main.obj
          Debug\AnimationComponent.obj
+         Debug\ColliderComponent.obj
          Debug\ComponentFabric.obj
          Debug\GameObjectFabric.obj
          Debug\IComponent.obj
@@ -42,4 +73,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.83
+Time Elapsed 00:00:36.17

@@ -5,7 +5,7 @@
 
 SpriteComponent::SpriteComponent(void)
 {
-    _textureId = -1;
+    _textureId = "";
     _id = Enums::COMPONENT_SPRITE;
 }
 
@@ -16,7 +16,7 @@ SpriteComponent::~SpriteComponent(void)
 
 void SpriteComponent::addSprite(int frameX, int frameY, int frameWidth, int frameHeight, bool horizontalFlip, bool verticalFlip)
 {
-    if(_textureId == -1)
+    if(_textureId == "")
     {
         std::cout<<"You must specify sprite sheet for texture.\n";
         return;
@@ -30,12 +30,12 @@ void SpriteComponent::addSprite(int frameX, int frameY, int frameWidth, int fram
     _info.verticalFlip = verticalFlip;
 }
 
-int SpriteComponent::getTextureId() const
+string SpriteComponent::getTextureId() const
 {
     return _textureId;
 }
 
-void SpriteComponent::setTextureId(int textureId)
+void SpriteComponent::setTextureId(string textureId)
 {
     _textureId = textureId;
 }

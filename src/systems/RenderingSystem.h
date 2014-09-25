@@ -28,8 +28,8 @@ public:
     void init(int windowWidth, int windowHigh, Uint32 flags);
     void render();
     void update(float deltaTime); // maybe not right to place this method in this system?
-    bool loadTexture(std::string filename, int id, SDL_Renderer *renderer);
-    std::map<int, SDL_Texture*> getTextureMap();
+    bool loadTexture(std::string filename, string id);
+    std::map<string, SDL_Texture*> getTextureMap();
     void cleanup();
 
 private:
@@ -46,7 +46,7 @@ private:
     vector<shared_ptr<AnimationComponent>> _animationComponents;
     vector<shared_ptr<SpriteComponent>>    _spriteComponents;
 
-    std::map<int, SDL_Texture*>            _textureMap;
+    std::map<string, SDL_Texture*>            _textureMap;
 };
 
 #endif

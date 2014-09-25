@@ -1,6 +1,7 @@
 #include "PlatformerPhysicsComponent.h"
 #include "Enums.h"
 #include "TransformComponent.h"
+#include "ColliderComponent.h"
 
 #include "GameObject.h"
 #include <iostream>
@@ -22,6 +23,8 @@ void PlatformerPhysicsComponent::update(float deltaTime)
 {
     if(movComp == nullptr)
         movComp = static_pointer_cast<MovementComponent>(_owner->getComponent(Enums::COMPONENT_MOVEMENT));
+    
+    _reactOnCollision();
 
     if(movComp->_isJumping)
         _performJumping(deltaTime);
@@ -46,12 +49,27 @@ float PlatformerPhysicsComponent::_lerp(float max, float current, float accelera
     return max;
 }
 
+void PlatformerPhysicsComponent::_reactOnCollision()
+{
+    shared_ptr<ColliderComponent> collider = static_pointer_cast<ColliderComponent>(_owner->getComponent(Enums::COMPONENT_COLLIDER));
+
+    if(collider->getIsCollided() == true)
+    {
+        cout<<">Collision occured\n";
+        movComp->_maxVelocity.x = 0;
+        movComp->_maxVelocity.y = 0;
+        collider->getCollisionCount() = 0;
+        collider->setIsCollided(false);
+        //_performGravity(1/16);
+    }
+}
+
 void PlatformerPhysicsComponent::_performGravity(float deltaTime)
 {
-    if(_owner->getTranformComponent()._position.y >= 400)
-    { 
-        _owner->getTranformComponent()._position.y = 400;
+    shared_ptr<ColliderComponent> collider = static_pointer_cast<ColliderComponent>(_owner->getComponent(Enums::COMPONENT_COLLIDER));
 
+    if(collider->getFootSensor()->getIsCollided() == true)
+    {
         movComp->_velocity.y = 0.0;
         movComp->_maxVelocity.y = 0.0f;
 
@@ -60,6 +78,19 @@ void PlatformerPhysicsComponent::_performGravity(float deltaTime)
     }
     else
         movComp->_velocity.y += _gravity.y * deltaTime;
+
+    //if(_owner->getTranformComponent()._position.y >= 400)
+    //{ 
+    //    //_owner->getTranformComponent()._position.y = 400;
+
+    //    movComp->_velocity.y = 0.0;
+    //    movComp->_maxVelocity.y = 0.0f;
+
+    //    movComp->_isOnTheGround = true;
+    //    movComp->_isJumping = false;
+    //}
+    //else
+    //    movComp->_velocity.y += _gravity.y * deltaTime;
 }
 
 void PlatformerPhysicsComponent::_performMovement(float deltaTime)

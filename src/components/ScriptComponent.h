@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCRIPTCOMPONENT_H_
+#define _SCRIPTCOMPONENT_H_
 
 #include "IComponent.h"
 #include "ScriptSystem.h"
@@ -15,3 +16,5 @@ public:
     void addOwner(char* script, GameObject* gameObject);
     /*void addOwner(char* script, IComponent* component, string nameInGameObjectScriptTable);*/ // For component scripts
 };
+
+#endif
